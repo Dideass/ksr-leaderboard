@@ -1,0 +1,14 @@
+[
+  {
+    "date": "2026-08-18",
+    "title": "Anchor models no longer compared with themselves",
+    "summary": "The consensus score is the mean predicted win rate against the other frozen anchors. A model that is itself an anchor is no longer given a free 50% against itself.",
+    "body": "This changes displayed KSR scores slightly, more so for the twelve frozen anchors. Benchmark weights and the one-model-one-row selection rule are unchanged."
+  },
+  {
+    "date": "2026-08-18",
+    "title": "KSR leaderboard launched",
+    "summary": "A public board for knowledge, science, and reasoning — not agents, not coding harnesses.",
+    "body": "KSR is now public. The first board scores models on ten frozen benchmarks, using each host's native input modality and excluding known tool, agent, and program-search runs. One model appears once. Missing scores stay blank."
+  }
+]

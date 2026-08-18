@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.coverage
+build/
+dist/
+*.egg-info/
+artifacts/
+data/raw/
+data/state/snapshots/
+data/frozen/kaggle_simpleqa_verified.json
+work/
+site/

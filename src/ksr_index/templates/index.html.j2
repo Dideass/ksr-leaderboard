@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>KSR · Knowledge and Scientific Reasoning</title>
+  <meta name="description" content="A public model leaderboard that measures only knowledge, science, and reasoning, using each benchmark's native input modality and excluding known tool-augmented runs.">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#leaderboard">Skip to leaderboard</a>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="KSR home">
+      <span class="brand__mark" aria-hidden="true">∴</span>
+      <span><b>KSR</b><small>Knowledge · Science · Reasoning</small></span>
+    </a>
+    <div class="topbar__meta">
+      <span>v{{ version }}</span>
+      <span>{{ generated_at[:10] }}</span>
+      <span>Native modality · Direct model</span>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__field" aria-hidden="true">
+        <svg class="hero-orbit" viewBox="0 0 720 520" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="orbit-fade" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#087967" stop-opacity=".55"/>
+              <stop offset="100%" stop-color="#12211e" stop-opacity=".12"/>
+            </linearGradient>
+          </defs>
+          <g class="hero-orbit__ring hero-orbit__ring--a">
+            <ellipse cx="360" cy="250" rx="250" ry="92"/>
+            <circle class="hero-orbit__node" r="4.2" cx="610" cy="250"/>
+          </g>
+          <g class="hero-orbit__ring hero-orbit__ring--b">
+            <ellipse cx="360" cy="250" rx="198" ry="168"/>
+            <circle class="hero-orbit__node" r="3.4" cx="360" cy="82"/>
+          </g>
+          <g class="hero-orbit__ring hero-orbit__ring--c">
+            <ellipse cx="360" cy="250" rx="120" ry="210"/>
+            <circle class="hero-orbit__node" r="3" cx="240" cy="250"/>
+          </g>
+          <g class="hero-orbit__core">
+            <circle cx="360" cy="250" r="7"/>
+            <circle cx="360" cy="250" r="18"/>
+            <circle class="hero-orbit__spark" cx="292" cy="198" r="2.2"/>
+            <circle class="hero-orbit__spark" cx="418" cy="312" r="1.8"/>
+            <circle class="hero-orbit__spark" cx="388" cy="176" r="1.6"/>
+          </g>
+        </svg>
+      </div>
+      <div class="hero__copy">
+        <p class="overline">ONE MODEL · ONE ROW · ONE SCALE</p>
+        <h1 id="hero-title" class="hero__title">
+          <span class="hero__word" style="--i:0"><b>K</b>nowledge</span>
+          <span class="hero__word" style="--i:1"><b>S</b>cience</span>
+          <span class="hero__word" style="--i:2"><b>R</b>easoning</span>
+        </h1>
+        <p class="hero__dek">Agent scores and coding do not measure a model's real intelligence. KSR keeps only knowledge, science, and reasoning — closer to the real experience of talking through a scientific question with the model itself.</p>
+      </div>
+      <div class="hero__readout" aria-label="Leaderboard status">
+        <div class="readout__ambient" aria-hidden="true"><span></span></div>
+        <div class="readout__head">
+          <p class="readout__live"><i></i> Live consensus</p>
+          <div class="readout__score">
+            <span data-count="{{ manifest.leaderboard.ranked_count }}">{{ manifest.leaderboard.ranked_count }}</span>
+            <small>models with an official rank</small>
+          </div>
+        </div>
+        {% if ranking_rows and ranking_rows[0].status == "ranked" %}
+        {% set ns = namespace(leaders=0) %}
+        <div class="readout__leaders">
+          <p class="readout__leaders-label">Current leaders</p>
+          <ol>
+            {% for row in ranking_rows %}
+            {% if row.status == "ranked" and ns.leaders < 3 %}
+            <li style="--i: {{ ns.leaders }}"{% if ns.leaders == 0 %} class="is-lead"{% endif %}>
+              <button type="button" data-open-model="{{ loop.index0 }}" title="{{ row.display_name }}">
+                <span class="lead-rank">{{ "%02d" | format(row.rank) }}</span>
+                <span class="lead-copy">
+                  <span class="lead-name">{{ row.display_name | short_name }}</span>
+                  <span class="lead-meta">{{ row.provider }} · {{ row.observed_benchmarks }}/{{ active_benchmarks | length }} benches</span>
+                  <span class="lead-bar" aria-hidden="true"><i style="--p: {{ row.point }}"></i></span>
+                </span>
+                <span class="lead-score">{{ row.point | score }}</span>
+              </button>
+            </li>
+            {% set ns.leaders = ns.leaders + 1 %}
+            {% endif %}
+            {% endfor %}
+          </ol>
+        </div>
+        {% endif %}
+        <dl>
+          <div><dt>Model entities</dt><dd>{{ manifest.leaderboard.row_count }}</dd></div>
+          <div><dt>Eligible observations</dt><dd>{{ manifest.eligible_observation_count }}</dd></div>
+          <div><dt>Pairwise comparisons</dt><dd>{{ manifest.leaderboard.pairwise_comparisons }}</dd></div>
+          <div><dt>Frozen anchors</dt><dd>{{ manifest.leaderboard.available_anchors | length }}</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    {% if latest_update %}
+    <section class="updates-strip" aria-label="Release notes">
+      <button class="updates-teaser" type="button" data-open-updates>
+        <span class="updates-teaser__kicker">Updates</span>
+        <span class="updates-teaser__date">{{ latest_update.date }}</span>
+        <span class="updates-teaser__title">{{ latest_update.title }}</span>
+        <span class="updates-teaser__summary">{{ latest_update.summary }}</span>
+        <span class="updates-teaser__action">History ↗</span>
+      </button>
+    </section>
+    {% endif %}
+
+    {% if manifest.config_warnings %}
+    <aside class="data-notice" role="note">
+      <strong>Source concentration</strong>
+      One public host carries several measurements. The page still uses the underlying benchmark weights; the platform-concentration risk stays in the manifest.
+    </aside>
+    {% endif %}
+
+    <section class="leaderboard" id="leaderboard" aria-labelledby="leaderboard-title">
+      <div class="leaderboard__heading">
+        <div>
+          <p class="overline">MODEL CONSENSUS</p>
+          <h2 id="leaderboard-title">KSR leaderboard</h2>
+        </div>
+      </div>
+
+      <div class="toolbar" aria-label="Leaderboard filters">
+        <label class="search-field">
+          <span>Search</span>
+          <input id="model-search" type="search" placeholder="Model or provider" autocomplete="off">
+        </label>
+        <label>
+          <span>Provider</span>
+          <select id="provider-filter">
+            <option value="">All</option>
+            {% for provider in ranking_rows | map(attribute='provider') | unique | sort %}
+            <option value="{{ provider | lower }}">{{ provider }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>
+          <span>Confidence</span>
+          <select id="confidence-filter">
+            <option value="">All</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+            <option value="insufficient">Insufficient</option>
+          </select>
+        </label>
+        <label>
+          <span>Sort</span>
+          <select id="sort-control">
+            <option value="rank">Consensus score</option>
+            <option value="coverage">Coverage</option>
+            <option value="date">Release date</option>
+            <option value="name">Name</option>
+          </select>
+        </label>
+        <label class="toggle-field">
+          <input id="ranked-only" type="checkbox">
+          <span>Official ranks only</span>
+        </label>
+      </div>
+
+      <div class="table-shell">
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Model</th>
+              <th scope="col">Released</th>
+              <th scope="col">Coverage</th>
+              <th scope="col">Direct scores</th>
+              <th scope="col">Confidence</th>
+              <th scope="col" class="score-column">KSR score</th>
+            </tr>
+          </thead>
+          <tbody id="ranking-body">
+            {% for row in ranking_rows %}
+            <tr class="model-row model-row--{{ row.status }}"
+                data-model-index="{{ loop.index0 }}"
+                data-search="{{ (row.display_name ~ ' ' ~ row.provider ~ ' ' ~ row.entity_id) | lower }}"
+                data-provider="{{ row.provider | lower }}"
+                data-confidence="{{ row.confidence }}"
+                data-status="{{ row.status }}"
+                data-rank="{{ row.rank or 99999 }}"
+                data-score="{{ row.point if row.point is not none else -1 }}"
+                data-coverage="{{ row.coverage }}"
+                data-date="{{ row.release_date or '0000-00-00' }}"
+                data-name="{{ row.display_name | lower }}">
+              <td class="rank-cell">{% if row.rank %}{{ "%02d" | format(row.rank) }}{% else %}—{% endif %}</td>
+              <td class="model-cell">
+                <button class="model-link" type="button" data-open-model="{{ loop.index0 }}">
+                  <span class="model-link__name">{{ row.display_name }}</span>
+                  <span class="model-link__provider">{{ row.provider }}</span>
+                  <span class="model-link__arrow" aria-hidden="true">↗</span>
+                </button>
+                <div class="evidence-bar" aria-label="{{ row.observed_benchmarks }} benchmarks with a direct score">
+                  {% for benchmark_id, component in row.components.items() %}
+                  <i class="{{ 'is-observed' if component.observed else 'is-missing' }}"
+                     style="--segment: {{ component.weight * 100 }}"
+                     title="{{ component.title }} · {{ component.score if component.score is not none else 'missing' }}"></i>
+                  {% endfor %}
+                </div>
+              </td>
+              <td>{{ row.release_date or 'unverified' }}</td>
+              <td>
+                <div class="coverage-cell"><span>{{ row.coverage | percent }}</span><meter min="0" max="1" value="{{ row.coverage }}"></meter></div>
+              </td>
+              <td>{{ row.observed_benchmarks }}/{{ active_benchmarks | length }}</td>
+              <td><span class="confidence confidence--{{ row.confidence }}"{% if row.warning %} title="{{ row.warning }}"{% endif %}>{{ {'high':'High','medium':'Medium','low':'Low','insufficient':'Insufficient'}[row.confidence] }}</span></td>
+              <td class="score-cell">
+                {% if row.point is not none %}
+                <strong>{{ row.point | score }}</strong><small>±{{ row.standard_error | score }}</small>
+                {% else %}
+                <strong>—</strong><small>insufficient</small>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <p id="empty-state" class="empty-state" hidden>No models match the current filters.</p>
+        <div class="table-more">
+          <button id="view-more" type="button">Show More</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="benchmark-register" aria-labelledby="benchmark-title">
+      <div class="section-heading">
+        <div><p class="overline">EVIDENCE BUDGET</p><h2 id="benchmark-title">{{ active_benchmarks | length }} scoring benchmarks</h2></div>
+      </div>
+      <div class="benchmark-grid">
+        {% for benchmark in active_benchmarks %}
+        <a href="{{ benchmark.source_url }}" target="_blank" rel="noreferrer" class="benchmark-card">
+          <span>{{ config.dimensions[benchmark.dimension] if config is defined else benchmark.dimension }}</span>
+          <strong>{{ benchmark.title }}</strong>
+          <b>{{ benchmark.weight_index | percent }}</b>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="methodology" aria-labelledby="method-title">
+      <div class="section-heading">
+        <div><p class="overline">HOW TO READ</p><h2 id="method-title">A blank is not a hidden score</h2></div>
+      </div>
+      <div class="methodology__grid">
+        <article><h3>Real head-to-heads</h3><p>Two models produce a win, loss, or tie only when both have a valid score on the same benchmark. A missing score is never written as a loss.</p></article>
+        <article><h3>Joint Bradley–Terry fit</h3><p>All weighted pairwise outcomes estimate latent ability together. A weak prior only damps extreme values when evidence is thin.</p></article>
+        <article><h3>Coverage is not a penalty</h3><p>Coverage is the share of the frozen evidence budget a model actually has. It drives the confidence label; it is not subtracted from the score.</p></article>
+        <article><h3>Auditable to each board</h3><p>Open any model to inspect each benchmark's score, weight, reasoning effort, version, and source.</p></article>
+      </div>
+      <p class="method-credit">Ranking method adapted from <a href="https://aihot.virxact.com/leaderboard/rules" target="_blank" rel="noreferrer">AIHOT</a>.</p>
+    </section>
+  </main>
+
+  {% if changelog %}
+  <dialog id="updates-dialog" class="updates-dialog" aria-labelledby="updates-title">
+    <article class="updates-sheet">
+      <header>
+        <p class="overline">RELEASE HISTORY</p>
+        <h2 id="updates-title">What changed</h2>
+      </header>
+      <ol class="updates-list">
+        {% for item in changelog %}
+        <li>
+          <time datetime="{{ item.date }}">{{ item.date }}</time>
+          <h3>{{ item.title }}</h3>
+          {% if item.summary %}<p class="updates-list__summary">{{ item.summary }}</p>{% endif %}
+          {% if item.body %}<p>{{ item.body }}</p>{% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+    </article>
+    <button class="dialog-close" type="button" data-close-dialog aria-label="Close updates">×</button>
+  </dialog>
+  {% endif %}
+
+  <dialog id="model-dialog" class="model-dialog" aria-labelledby="dialog-title">
+    <div id="dialog-content"></div>
+    <button class="dialog-close" type="button" data-close-dialog aria-label="Close model details">×</button>
+  </dialog>
+
+  <div id="model-templates" hidden>
+    {% for row in ranking_rows %}
+    <template data-model-template="{{ loop.index0 }}">
+      <article class="model-sheet">
+        <header class="model-sheet__header">
+          <div>
+            <p class="overline">{{ row.provider }} · {{ row.release_date or 'date unverified' }}</p>
+            <h2 id="dialog-title">{{ row.display_name }}</h2>
+            <p class="entity-id">{{ row.entity_id }}</p>
+          </div>
+          <div class="model-sheet__score">
+            <span>{{ row.point | score }}</span>
+            <small>{% if row.point is not none %}95% CI {{ row.ci_low | score }}—{{ row.ci_high | score }}{% else %}{{ row.warning }}{% endif %}</small>
+          </div>
+        </header>
+        <dl class="model-sheet__facts">
+          <div><dt>Coverage</dt><dd>{{ row.coverage | percent }}</dd></div>
+          <div><dt>Direct benchmarks</dt><dd>{{ row.observed_benchmarks }}/{{ active_benchmarks | length }}</dd></div>
+          <div><dt>Evidence families</dt><dd>{{ row.evidence_families }}</dd></div>
+          <div><dt>Shared anchors</dt><dd>{{ row.anchor_comparisons }}</dd></div>
+          <div><dt>Confidence</dt><dd>{{ {'high':'High','medium':'Medium','low':'Low','insufficient':'Insufficient'}[row.confidence] }}</dd></div>
+          <div><dt>Standard error</dt><dd>{{ row.standard_error | score }}</dd></div>
+        </dl>
+        <div class="benchmark-detail-grid">
+          {% for benchmark_id, component in row.components.items() %}
+          <section class="benchmark-detail {{ 'is-missing' if not component.observed }}">
+            <div class="benchmark-detail__head">
+              <div><span>{{ config.dimensions[component.dimension] if config is defined else component.dimension }}</span><h3>{{ component.title }}</h3></div>
+              <b>{{ component.weight | percent }}</b>
+            </div>
+            {% if component.observed %}
+            <div class="benchmark-detail__score">{{ component.score | score }}</div>
+            <dl class="benchmark-detail__protocol">
+              <div><dt>Reasoning effort</dt><dd>{{ component.reasoning_effort }}</dd></div>
+              <div><dt>Input modality</dt><dd>{{ {'text':'Text','multimodal':'Image + text','vision':'Vision','grid-visual':'Grid vision'}.get(component.modality, component.modality) }}</dd></div>
+              <div><dt>Tool evidence</dt><dd>{% if 'no external tool protocol described' in component.notes or 'does not expose a separate tool flag' in component.notes %}Host does not split tools{% elif component.tool_mode == 'none' %}No external tools{% else %}{{ component.tool_mode }}{% endif %}</dd></div>
+              <div><dt>Version</dt><dd>{{ component.benchmark_version }}</dd></div>
+              <div><dt>Eval date</dt><dd>{{ component.eval_date[:10] }}</dd></div>
+              <div><dt>Configuration</dt><dd title="{{ component.model_id }}">{{ component.model_id }}</dd></div>
+            </dl>
+            {% if component.notes %}<p class="benchmark-detail__note">{{ component.notes }}</p>{% endif %}
+            <a href="{{ component.source_url }}" target="_blank" rel="noreferrer">Check source ↗</a>
+            {% else %}
+            <div class="benchmark-detail__missing">Not scored · not imputed</div>
+            {% endif %}
+          </section>
+          {% endfor %}
+        </div>
+      </article>
+    </template>
+    {% endfor %}
+  </div>
+
+  <footer>
+    <p>KSR v{{ version }} · A score is not a complete measure of human intelligence.</p>
+    <p><a href="data/ranking.json">ranking.json</a><a href="data/manifest.json">manifest.json</a></p>
+  </footer>
+</body>
+</html>

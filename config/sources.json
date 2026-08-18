@@ -1,0 +1,149 @@
+{
+  "aliases_path": "data/manual/model_aliases.csv",
+  "sources": [
+    {
+      "id": "manual_observations",
+      "adapter": "manual_csv",
+      "enabled": true,
+      "path": "data/manual/observations.csv",
+      "source_tier": "benchmark_host"
+    },
+    {
+      "id": "livebench_release",
+      "adapter": "category_mean_csv",
+      "enabled": true,
+      "path": "data/frozen/livebench_table_2026_06_25.csv",
+      "url": "https://livebench.ai/table_2026_06_25.csv",
+      "public_url": "https://livebench.ai/",
+      "benchmark_version": "2026-06-25",
+      "model_column": "model",
+      "infer_public_identity": true,
+      "category_columns": {
+        "livebench_reasoning": ["theory_of_mind", "zebra_puzzle", "spatial", "logic_with_navigation"],
+        "livebench_math": ["AMPS_Hard", "integrals_with_game", "math_comp", "olympiad"],
+        "livebench_data_analysis": ["consecutive_events", "tablejoin", "tablereformat"]
+      },
+      "metric": "canonical",
+      "eval_date": "2026-06-25",
+      "minimum_rows": 100,
+      "source_tier": "benchmark_host",
+      "tool_mode": "none",
+      "modality": "text",
+      "protocol_hash": "livebench-2026-06-25-selected-category-task-means"
+    },
+    {
+      "id": "hle_standard_official",
+      "adapter": "curated_csv",
+      "enabled": true,
+      "path": "data/frozen/hle_standard_official.csv",
+      "infer_public_identity": true,
+      "infer_effort_from_identity": true,
+      "source_tier": "benchmark_host",
+      "metric": "canonical",
+      "protocol_hash": "hle-finalized-2500-standard-native-multimodal-direct-model",
+      "minimum_rows": 45
+    },
+    {
+      "id": "aa_public_measurements",
+      "adapter": "artificial_analysis_html",
+      "enabled": true,
+      "path": "data/frozen/aa_measurements.json",
+      "url": "https://artificialanalysis.ai/evaluations/omniscience",
+      "public_url": "https://artificialanalysis.ai/methodology/intelligence-benchmarking",
+      "payload_key": "defaultData",
+      "source_tier": "independent",
+      "timeout_seconds": 120,
+      "minimum_rows": 2000,
+      "minimum_retained_fraction": 0.85,
+      "score_fields": {
+        "hle": {
+          "field": "hle",
+          "token_key": "hle",
+          "version": "aa-hle-text-2158-2026-08",
+          "metric": "canonical",
+          "sample_size": 2158,
+          "modality": "text",
+          "protocol_hash": "aa-hle-text-only-2158-no-tools",
+          "source_url": "https://artificialanalysis.ai/evaluations/humanitys-last-exam"
+        },
+        "critpt": {
+          "field": "critpt",
+          "token_key": "critpt",
+          "version": "aa-canonical-70x5-2026-08",
+          "metric": "pass_rate",
+          "sample_size": 350,
+          "modality": "text",
+          "protocol_hash": "aa-critpt-70-challenges-5-repeat-no-tools",
+          "source_url": "https://artificialanalysis.ai/evaluations/critpt"
+        },
+        "aa_lcr": {
+          "field": "lcr",
+          "token_key": "lcr",
+          "version": "aa-lcr-100x3-2026-08",
+          "metric": "pass_rate",
+          "sample_size": 300,
+          "modality": "text",
+          "protocol_hash": "aa-lcr-100-questions-3-repeat-no-tools",
+          "source_url": "https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning"
+        },
+        "aa_omniscience": {
+          "field": "omniscience",
+          "token_key": "omniscience",
+          "version": "aa-omniscience-6000-2026-08",
+          "metric": "signed_index",
+          "scale": 1,
+          "unit": "percent",
+          "modality": "text",
+          "protocol_hash": "aa-omniscience-6000-no-tools",
+          "source_url": "https://artificialanalysis.ai/evaluations/omniscience"
+        },
+        "gpqa_diamond": {
+          "field": "gpqa",
+          "token_key": "gpqa",
+          "version": "aa-gpqa-diamond-198x5-2026-08",
+          "metric": "multiple_choice",
+          "sample_size": 990,
+          "modality": "text",
+          "protocol_hash": "aa-gpqa-diamond-198-5-repeat-no-tools",
+          "source_url": "https://artificialanalysis.ai/evaluations/gpqa-diamond"
+        }
+      }
+    },
+    {
+      "id": "vals_mmlu_pro",
+      "adapter": "vals_html",
+      "enabled": true,
+      "path": "data/frozen/vals_mmlu_pro.json",
+      "url": "https://www.vals.ai/benchmarks/mmlu_pro",
+      "public_url": "https://www.vals.ai/benchmarks/mmlu_pro",
+      "source_tier": "independent",
+      "timeout_seconds": 90,
+      "minimum_rows": 80,
+      "benchmark_id": "mmlu_pro",
+      "benchmark_version": "vals-2026-08-15-5shot-cot",
+      "eval_date": "2026-08-15",
+      "metric": "canonical",
+      "sample_size": 12032,
+      "tool_mode": "none",
+      "modality": "text",
+      "protocol_hash": "vals-mmlu-pro-5shot-cot-no-tools"
+    },
+    {
+      "id": "arc_agi_2_verified_cot",
+      "adapter": "arc_prize_json",
+      "enabled": true,
+      "path": "data/frozen/arc_agi_2_leaderboard.json",
+      "url": "https://arcprize.org/media/data/leaderboard/v2.json",
+      "public_url": "https://arcprize.org/leaderboard",
+      "source_tier": "benchmark_host",
+      "timeout_seconds": 90,
+      "minimum_rows": 100,
+      "benchmark_id": "arc_agi_2",
+      "benchmark_version": "official-semi-private-120",
+      "metric": "pass_rate",
+      "tool_mode": "none",
+      "modality": "grid-visual",
+      "protocol_hash": "arc-agi-2-semi-private-120-verified-cot-no-tools"
+    }
+  ]
+}
