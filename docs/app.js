@@ -5,7 +5,6 @@
   const provider = document.querySelector("#provider-filter");
   const confidence = document.querySelector("#confidence-filter");
   const sort = document.querySelector("#sort-control");
-  const rankedOnly = document.querySelector("#ranked-only");
   const empty = document.querySelector("#empty-state");
   const more = document.querySelector("#view-more");
   const moreWrap = document.querySelector(".table-more");
@@ -22,7 +21,6 @@
     const query = search.value.trim().toLocaleLowerCase("en");
     const providerValue = provider.value;
     const confidenceValue = confidence.value;
-    const rankedOnlyValue = rankedOnly.checked;
 
     const ordered = [...rows].sort((first, second) => {
       if (sort.value === "coverage") {
@@ -44,8 +42,7 @@
     const matched = ordered.filter((row) =>
       (!query || row.dataset.search.includes(query)) &&
       (!providerValue || row.dataset.provider === providerValue) &&
-      (!confidenceValue || row.dataset.confidence === confidenceValue) &&
-      (!rankedOnlyValue || row.dataset.status === "ranked")
+      (!confidenceValue || row.dataset.confidence === confidenceValue)
     );
     const unmatched = ordered.filter((row) => !matched.includes(row));
     unmatched.forEach((row) => {
@@ -79,7 +76,7 @@
     modelDialog.showModal();
   }
 
-  [search, provider, confidence, rankedOnly].forEach((control) => {
+  [search, provider, confidence].forEach((control) => {
     control.addEventListener(control === search ? "input" : "change", resetPaging);
   });
   sort.addEventListener("change", applyTableState);

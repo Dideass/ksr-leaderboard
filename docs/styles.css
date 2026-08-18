@@ -437,7 +437,7 @@ main, footer { width: min(1540px, calc(100% - 48px)); margin: 0 auto; }
   top: 0;
   z-index: 10;
   display: grid;
-  grid-template-columns: minmax(240px, 1.5fr) repeat(3, minmax(130px, .55fr)) auto;
+  grid-template-columns: minmax(240px, 1.5fr) repeat(3, minmax(130px, .7fr));
   gap: 1px;
   padding: 1px;
   background: var(--rule);
@@ -446,9 +446,6 @@ main, footer { width: min(1540px, calc(100% - 48px)); margin: 0 auto; }
 .toolbar label { display: flex; flex-direction: column; gap: 6px; padding: 10px 13px; background: var(--surface); }
 .toolbar label > span { color: var(--ink-2); text-transform: uppercase; font: 9px var(--data); letter-spacing: .08em; }
 .toolbar input, .toolbar select { width: 100%; min-height: 30px; padding: 0; color: var(--ink); background: transparent; border: 0; outline: none; }
-.toolbar .toggle-field { min-width: 160px; flex-direction: row; align-items: center; justify-content: center; gap: 9px; }
-.toolbar .toggle-field input { width: 16px; min-height: 16px; accent-color: var(--teal); }
-.toolbar .toggle-field span { color: var(--ink); text-transform: none; font: 12px var(--body); }
 
 .table-shell { overflow-x: auto; background: var(--surface); border: 1px solid var(--rule); border-top: 0; }
 .ranking-table { width: 100%; min-width: 1040px; border-collapse: collapse; }
@@ -586,7 +583,7 @@ footer a + a { margin-left: 18px; }
   }
   .updates-teaser__kicker { align-self: center; padding-right: 0; margin-right: 0; border-right: 0; }
   .toolbar { grid-template-columns: 1.4fr 1fr 1fr; }
-  .toolbar label:nth-child(4), .toolbar label:nth-child(5) { grid-column: span 1; }
+  .toolbar label:nth-child(4) { grid-column: span 1; }
   .benchmark-grid { grid-template-columns: 1fr 1fr; }
   .benchmark-card:nth-child(n) { padding-left: 0; border-left: 0; }
   .benchmark-card:nth-child(even) { padding-left: 22px; border-left: 1px solid var(--rule); }
@@ -614,7 +611,6 @@ footer a + a { margin-left: 18px; }
   .leaderboard__heading, .section-heading { align-items: flex-start; flex-direction: column; }
   .toolbar { position: static; grid-template-columns: 1fr 1fr; }
   .toolbar .search-field { grid-column: 1 / -1; }
-  .toolbar .toggle-field { min-width: 0; }
   .benchmark-grid { grid-template-columns: 1fr; }
   .benchmark-card:nth-child(n) { padding-left: 0; border-left: 0; }
   .benchmark-card:nth-child(n):hover { padding-left: 10px; }
