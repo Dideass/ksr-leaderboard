@@ -42,7 +42,7 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(html.count("aihot.virxact.com"), 1)
         self.assertIn("Ranking method adapted from", html)
         self.assertNotIn("Method notes", html)
-        self.assertIn("Native modality · Direct model", html)
+        self.assertNotIn("Native modality · Direct model", html)
         self.assertIn("Agent scores and coding do not measure", html)
         self.assertIn("Knowledge", html)
         self.assertIn("Science", html)
