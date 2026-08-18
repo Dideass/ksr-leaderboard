@@ -181,7 +181,7 @@
           </thead>
           <tbody id="ranking-body">
             {% for row in ranking_rows %}
-            <tr class="model-row model-row--{{ row.status }}"
+            <tr class="model-row model-row--{{ row.status }}"{% if loop.index > 20 %} hidden{% endif %}
                 data-model-index="{{ loop.index0 }}"
                 data-search="{{ (row.display_name ~ ' ' ~ row.provider ~ ' ' ~ row.entity_id) | lower }}"
                 data-provider="{{ row.provider | lower }}"

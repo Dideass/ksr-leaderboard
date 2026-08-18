@@ -49,6 +49,7 @@ class PipelineTests(unittest.TestCase):
         self.assertIn("Reasoning", html)
         self.assertIn("KSR leaderboard launched", html)
         self.assertIn("id=\"view-more\"", html)
+        self.assertIn("{% if loop.index > 20 %} hidden{% endif %}", Path("src/ksr_index/templates/index.html.j2").read_text(encoding="utf-8"))
         self.assertIn("readout__ambient", html)
         self.assertNotIn("Current leaders", html)
         self.assertNotIn("Highest reasoning effort", html)

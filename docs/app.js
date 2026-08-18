@@ -18,20 +18,22 @@
   const number = (row, key) => Number(row.dataset[key] || 0);
 
   function applyTableState() {
-    const query = search.value.trim().toLocaleLowerCase("en");
-    const providerValue = provider.value;
-    const confidenceValue = confidence.value;
+    if (!body) return;
+    const query = search ? search.value.trim().toLocaleLowerCase("en") : "";
+    const providerValue = provider ? provider.value : "";
+    const confidenceValue = confidence ? confidence.value : "";
+    const sortValue = sort ? sort.value : "rank";
 
     const ordered = [...rows].sort((first, second) => {
-      if (sort.value === "coverage") {
+      if (sortValue === "coverage") {
         return number(second, "coverage") - number(first, "coverage") ||
           number(first, "rank") - number(second, "rank");
       }
-      if (sort.value === "date") {
+      if (sortValue === "date") {
         return second.dataset.date.localeCompare(first.dataset.date) ||
           number(first, "rank") - number(second, "rank");
       }
-      if (sort.value === "name") {
+      if (sortValue === "name") {
         return first.dataset.name.localeCompare(second.dataset.name, "en");
       }
       return number(first, "rank") - number(second, "rank") ||
@@ -54,7 +56,7 @@
       row.hidden = index >= limit;
     });
 
-    empty.hidden = matched.length > 0;
+    if (empty) empty.hidden = matched.length > 0;
     const shown = Math.min(limit, matched.length);
     const hasMore = shown < matched.length;
     if (moreWrap) moreWrap.hidden = !hasMore;
@@ -77,9 +79,10 @@
   }
 
   [search, provider, confidence].forEach((control) => {
+    if (!control) return;
     control.addEventListener(control === search ? "input" : "change", resetPaging);
   });
-  sort.addEventListener("change", applyTableState);
+  if (sort) sort.addEventListener("change", applyTableState);
 
   if (more) {
     more.addEventListener("click", () => {

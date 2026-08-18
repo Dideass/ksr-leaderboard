@@ -480,6 +480,7 @@ meter::-moz-meter-bar { background: var(--teal); }
 .score-column, .score-cell { text-align: right !important; }
 .score-cell strong { display: block; font: 600 27px/1 var(--display); }
 .score-cell small { display: block; margin-top: 5px; color: var(--ink-2); font: 9px var(--data); }
+.model-row[hidden] { display: none !important; }
 .empty-state { margin: 0; padding: 50px; color: var(--ink-2); text-align: center; }
 .table-more { display: flex; justify-content: center; padding: 18px; border-top: 1px solid var(--rule); background: var(--surface-2); }
 .table-more[hidden], #view-more[hidden] { display: none; }
