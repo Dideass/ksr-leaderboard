@@ -10,7 +10,7 @@
     "epistemic_reliability": "Epistemic reliability"
   },
   "settings": {
-    "scoring_revision": "bt-2026-08-18-anchor-excludes-self",
+    "scoring_revision": "bt-2026-08-18-hle-aa-only",
     "pairwise_budget_units": 84.0,
     "prior_sigma": 2.0,
     "entry_min_coverage": 0.40,
@@ -71,7 +71,7 @@
       "source_platform": "hle",
       "weights": {"index": 0.15},
       "source_url": "https://artificialanalysis.ai/evaluations/humanitys-last-exam",
-      "notes": "Official Scale 2,500-question multimodal board is preferred; AA's independent 2,158-question text-only run fills gaps."
+      "notes": "Artificial Analysis 2,158-question text-only run; no tools."
     },
     {
       "id": "gpqa_diamond",

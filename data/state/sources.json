@@ -1,7 +1,7 @@
 {
   "aa_public_measurements": {
     "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-    "checked_at": "2026-08-18T04:41:31+00:00",
+    "checked_at": "2026-08-18T07:47:29+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],
@@ -17,6 +17,7 @@
   },
   "arc_agi_2_verified_cot": {
     "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
+    "checked_at": "2026-08-18T07:47:29+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],
@@ -30,25 +31,9 @@
     "source_config_sha256": "995ca514721b3555a782dbf977e3cdb3e4be811d1d951a7610fc7d4b67f1bd45",
     "status": "ok"
   },
-  "hle_standard_official": {
-    "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-    "checked_at": "2026-08-18T04:41:31+00:00",
-    "consecutive_failures": 0,
-    "etag": "",
-    "excluded_model_names": [],
-    "exclusion_notes": {},
-    "last_modified": "",
-    "raw_path": "data\\raw\\hle_standard_official\\ad117f752dac9a7d1ffb648bb44a02c7050326fa733df9d67565af9ddae7e52a.csv",
-    "reparsed_from_cache": false,
-    "retrieved_at": "2026-08-18T02:27:23+00:00",
-    "row_count": 49,
-    "sha256": "ad117f752dac9a7d1ffb648bb44a02c7050326fa733df9d67565af9ddae7e52a",
-    "source_config_sha256": "01025f2d0df32bb7080fd3f0b2b9a7cdf25d0355a39de18404d8bbe7196514b5",
-    "status": "ok"
-  },
   "livebench_release": {
     "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-    "checked_at": "2026-08-18T04:41:31+00:00",
+    "checked_at": "2026-08-18T07:47:29+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],
@@ -64,7 +49,7 @@
   },
   "manual_observations": {
     "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-    "checked_at": "2026-08-18T04:41:31+00:00",
+    "checked_at": "2026-08-18T07:47:29+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],
@@ -80,7 +65,7 @@
   },
   "vals_mmlu_pro": {
     "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-    "checked_at": "2026-08-18T04:41:31+00:00",
+    "checked_at": "2026-08-18T07:47:29+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],

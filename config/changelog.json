@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-08-18",
+    "title": "HLE now uses Artificial Analysis only",
+    "summary": "Every HLE score on the board comes from the AA text-only catalog. The official Scale board is no longer mixed in.",
+    "body": "Models that only appeared on the Scale HLE board lose that score unless AA also measured them. Other benchmarks are unchanged."
+  },
+  {
+    "date": "2026-08-18",
     "title": "Anchor models no longer compared with themselves",
     "summary": "The consensus score is the mean predicted win rate against the other frozen anchors. A model that is itself an anchor is no longer given a free 50% against itself.",
     "body": "This changes displayed KSR scores slightly, more so for the twelve frozen anchors. Benchmark weights and the one-model-one-row selection rule are unchanged."

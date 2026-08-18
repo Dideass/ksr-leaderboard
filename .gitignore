@@ -10,5 +10,6 @@ artifacts/
 data/raw/
 data/state/snapshots/
 data/frozen/kaggle_simpleqa_verified.json
+data/frozen/hle_standard_official.csv
 work/
 site/

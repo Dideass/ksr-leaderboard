@@ -7,7 +7,7 @@ KSR is a static leaderboard. Scores come from frozen snapshots and a manual CSV.
 - `config/index.v1.json` — ten-benchmark basket, weights, anchors, entry rules
 - `config/sources.json` — ingest adapters and frozen snapshot paths
 - `config/changelog.json` — homepage release history (newest first)
-- `data/frozen/` — LiveBench, AA, Vals, ARC, official HLE
+- `data/frozen/` — LiveBench, AA, Vals, ARC
 - `data/manual/observations.csv` — hand-added scores
 - `data/manual/model_aliases.csv` — identity overrides
 - `data/state/observations.jsonl` — merged observation store used by `ksr build`
@@ -32,7 +32,7 @@ ksr build
 - Qwen `Max` is a product tier, not reasoning effort.
 - Missing scores stay blank. No imputation, no penalty, no weight transfer.
 - No active benchmark above 15%. Weights are multiples of 5% and sum to 100%.
-- Official Scale HLE outranks AA only when effort is at least as high.
+- HLE uses only Artificial Analysis scores.
 - UI copy is English.
 
 ## After a method change

@@ -32,18 +32,6 @@
       "protocol_hash": "livebench-2026-06-25-selected-category-task-means"
     },
     {
-      "id": "hle_standard_official",
-      "adapter": "curated_csv",
-      "enabled": true,
-      "path": "data/frozen/hle_standard_official.csv",
-      "infer_public_identity": true,
-      "infer_effort_from_identity": true,
-      "source_tier": "benchmark_host",
-      "metric": "canonical",
-      "protocol_hash": "hle-finalized-2500-standard-native-multimodal-direct-model",
-      "minimum_rows": 45
-    },
-    {
       "id": "aa_public_measurements",
       "adapter": "artificial_analysis_html",
       "enabled": true,

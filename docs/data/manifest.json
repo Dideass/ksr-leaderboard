@@ -1,13 +1,13 @@
 {
   "config_warnings": [],
-  "data_hash": "e27a18b5f69e6221a2a03b168d4be9c13450f3191fe3f34fe43c8d4ae1a0f4b8",
-  "eligible_observation_count": 2802,
-  "generated_at": "2026-08-18T07:35:52+00:00",
+  "data_hash": "1cedb7bec5be95db9d8040698e1baa33c15ee4149ae93dc76a7e7dcb9e470734",
+  "eligible_observation_count": 2753,
+  "generated_at": "2026-08-18T07:47:39+00:00",
   "governance": [
     {
       "benchmark_id": "hle",
-      "model_count": 527,
-      "notes": "Official Scale 2,500-question multimodal board is preferred; AA's independent 2,158-question text-only run fills gaps.",
+      "model_count": 478,
+      "notes": "Artificial Analysis 2,158-question text-only run; no tools.",
       "saturation_review_signal": false,
       "status": "active",
       "title": "Humanity's Last Exam",
@@ -128,19 +128,19 @@
       "arc_agi_2": 45,
       "critpt": 288,
       "gpqa_diamond": 288,
-      "hle": 289,
+      "hle": 288,
       "livebench_data_analysis": 39,
       "livebench_math": 39,
       "livebench_reasoning": 39,
       "mmlu_pro": 83
     },
-    "candidate_models": 386,
+    "candidate_models": 380,
     "comparison_circle_models": 290,
-    "insufficient_count": 98,
+    "insufficient_count": 92,
     "method": "weighted_bradley_terry",
     "method_ready": true,
     "missing_policy": "no_imputation_no_penalty_no_weight_transfer",
-    "pairwise_comparisons": 213257,
+    "pairwise_comparisons": 212969,
     "ranked_count": 288,
     "ranked_models": 288,
     "representative_policy": "highest_reasoning_effort_then_source_then_date",
@@ -158,19 +158,19 @@
       "alibaba/qwen3.8-max",
       "deepseek/deepseek-v4-pro"
     ],
-    "row_count": 386
+    "row_count": 380
   },
-  "method_hash": "ddfc9daaf3fdd8866e3a1d2fec9fa654ed3a4d2f2ede41e4fe53a2070c68b9ad",
-  "observation_count": 2802,
+  "method_hash": "2fc0dabed9b2c2e3160a51b4253d093c6ebf68dcf6a6649caf4de0b46cc41ead",
+  "observation_count": 2753,
   "parquet": {
     "error": "",
     "written": true
   },
-  "snapshot_id": "v3.5.0-ddfc9daa-e27a18b5",
+  "snapshot_id": "v3.5.0-2fc0dabe-1cedb7be",
   "sources": {
     "aa_public_measurements": {
       "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-      "checked_at": "2026-08-18T04:41:31+00:00",
+      "checked_at": "2026-08-18T07:47:29+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
@@ -186,6 +186,7 @@
     },
     "arc_agi_2_verified_cot": {
       "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
+      "checked_at": "2026-08-18T07:47:29+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
@@ -199,25 +200,9 @@
       "source_config_sha256": "995ca514721b3555a782dbf977e3cdb3e4be811d1d951a7610fc7d4b67f1bd45",
       "status": "ok"
     },
-    "hle_standard_official": {
-      "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-      "checked_at": "2026-08-18T04:41:31+00:00",
-      "consecutive_failures": 0,
-      "etag": "",
-      "excluded_model_names": [],
-      "exclusion_notes": {},
-      "last_modified": "",
-      "raw_path": "data\\raw\\hle_standard_official\\ad117f752dac9a7d1ffb648bb44a02c7050326fa733df9d67565af9ddae7e52a.csv",
-      "reparsed_from_cache": false,
-      "retrieved_at": "2026-08-18T02:27:23+00:00",
-      "row_count": 49,
-      "sha256": "ad117f752dac9a7d1ffb648bb44a02c7050326fa733df9d67565af9ddae7e52a",
-      "source_config_sha256": "01025f2d0df32bb7080fd3f0b2b9a7cdf25d0355a39de18404d8bbe7196514b5",
-      "status": "ok"
-    },
     "livebench_release": {
       "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-      "checked_at": "2026-08-18T04:41:31+00:00",
+      "checked_at": "2026-08-18T07:47:29+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
@@ -233,7 +218,7 @@
     },
     "manual_observations": {
       "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-      "checked_at": "2026-08-18T04:41:31+00:00",
+      "checked_at": "2026-08-18T07:47:29+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
@@ -249,7 +234,7 @@
     },
     "vals_mmlu_pro": {
       "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-      "checked_at": "2026-08-18T04:41:31+00:00",
+      "checked_at": "2026-08-18T07:47:29+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
