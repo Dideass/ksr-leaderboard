@@ -2,7 +2,7 @@
 
 Live site: https://dideass.github.io/ksr-leaderboard/
 
-KSR (Knowledge and Scientific Reasoning) ranks language models on knowledge, science, and reasoning only.
+KSR (Knowledge, Science, Reasoning) ranks language models on those three things only.
 
 ## Design
 

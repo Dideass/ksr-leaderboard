@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ksr-index"
 version = "0.1.0"
-description = "Knowledge and Scientific Reasoning Index"
+description = "Knowledge, Science, Reasoning leaderboard"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

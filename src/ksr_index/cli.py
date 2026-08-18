@@ -53,7 +53,7 @@ MANUAL_FIELDS = [
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="ksr", description="Knowledge and Scientific Reasoning Index"
+        prog="ksr", description="Knowledge, Science, Reasoning leaderboard"
     )
     parser.add_argument("--root", default=".", help="project root")
     subparsers = parser.add_subparsers(dest="command", required=True)
