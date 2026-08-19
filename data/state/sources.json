@@ -1,23 +1,22 @@
 {
   "aa_public_measurements": {
     "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-    "checked_at": "2026-08-18T07:47:29+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],
     "exclusion_notes": {},
     "last_modified": "",
-    "raw_path": "data\\raw\\aa_public_measurements\\5b31d12cf18792044a0da28541e33c732ea92f586d7cde76e25beb8318928ff5.json",
+    "raw_path": "data\\raw\\aa_public_measurements\\2a293ac501b27f0b9679910a691f090fb349069049ace4189ccb4f9c6cf3f33c.json",
     "reparsed_from_cache": false,
-    "retrieved_at": "2026-08-18T03:11:42+00:00",
-    "row_count": 2339,
-    "sha256": "5b31d12cf18792044a0da28541e33c732ea92f586d7cde76e25beb8318928ff5",
+    "retrieved_at": "2026-08-19T02:06:23+00:00",
+    "row_count": 2344,
+    "sha256": "2a293ac501b27f0b9679910a691f090fb349069049ace4189ccb4f9c6cf3f33c",
     "source_config_sha256": "004ae532f4fe45a4a07ff2f74dde71788c8201545efdf3946c88dc51ae73c0e3",
     "status": "ok"
   },
   "arc_agi_2_verified_cot": {
     "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-    "checked_at": "2026-08-18T07:47:29+00:00",
+    "checked_at": "2026-08-19T02:06:24+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],
@@ -33,7 +32,7 @@
   },
   "livebench_release": {
     "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-    "checked_at": "2026-08-18T07:47:29+00:00",
+    "checked_at": "2026-08-19T02:06:23+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],
@@ -49,7 +48,7 @@
   },
   "manual_observations": {
     "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-    "checked_at": "2026-08-18T07:47:29+00:00",
+    "checked_at": "2026-08-19T02:06:23+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],
@@ -65,7 +64,7 @@
   },
   "vals_mmlu_pro": {
     "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-    "checked_at": "2026-08-18T07:47:29+00:00",
+    "checked_at": "2026-08-19T02:06:24+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],

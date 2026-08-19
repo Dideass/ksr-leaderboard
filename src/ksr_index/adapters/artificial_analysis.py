@@ -41,6 +41,64 @@ def _json_value_after(text: str, key: str) -> Any:
         raise AdapterError(f"Artificial Analysis payload has invalid {key}") from exc
 
 
+AA_SCORE_FIELDS = ("hle", "gpqa", "critpt", "lcr", "omniscience")
+
+
+def normalize_aa_row(row: dict[str, Any]) -> dict[str, Any]:
+    """Map current AA camelCase records onto the frozen snake_case snapshot."""
+    name = str(row.get("name") or row.get("short_name") or row.get("shortName") or "").strip()
+    return {
+        "name": name,
+        "slug": str(row.get("slug") or "").strip(),
+        "short_name": str(row.get("short_name") or row.get("shortName") or name).strip(),
+        "release_date": str(row.get("release_date") or row.get("releaseDate") or ""),
+        "deleted": bool(row.get("deleted") or row.get("deprecated")),
+        "model_creators": row.get("model_creators") or row.get("creator") or {},
+        "canonical_eval_token_counts": (
+            row.get("canonical_eval_token_counts") or row.get("canonicalEvalTokenCounts") or {}
+        ),
+        **{field: row.get(field) for field in AA_SCORE_FIELDS},
+    }
+
+
+def extract_aa_model_rows(text: str, payload_key: str = "defaultData") -> list[dict[str, Any]]:
+    """Read a frozen JSON snapshot or a public AA HTML Flight payload."""
+    stripped = text.lstrip()
+    raw_rows: Any = None
+    if stripped.startswith("[") or stripped.startswith("{"):
+        try:
+            payload = json.loads(text)
+        except json.JSONDecodeError as exc:
+            raise AdapterError("Artificial Analysis snapshot is not valid JSON") from exc
+        if isinstance(payload, list):
+            raw_rows = payload
+        elif isinstance(payload, dict):
+            for key in (payload_key, "initialModels"):
+                candidate = payload.get(key)
+                if isinstance(candidate, list):
+                    raw_rows = candidate
+                    break
+        if raw_rows is None:
+            raise AdapterError("Artificial Analysis snapshot is not a model list")
+    else:
+        flight = _flight_text(text)
+        last_error: AdapterError | None = None
+        for key in (payload_key, "initialModels"):
+            try:
+                candidate = _json_value_after(flight, key)
+            except AdapterError as exc:
+                last_error = exc
+                continue
+            if isinstance(candidate, list) and candidate:
+                raw_rows = candidate
+                break
+        if raw_rows is None:
+            raise last_error or AdapterError("Artificial Analysis payload missing model list")
+    if not isinstance(raw_rows, list):
+        raise AdapterError("Artificial Analysis snapshot is not a model list")
+    return [normalize_aa_row(row) for row in raw_rows if isinstance(row, dict)]
+
+
 def _aa_notes(name: str, has_token_counts: bool) -> str:
     bits = ["AA public catalog score"]
     if "fallback" in name.lower():
@@ -63,10 +121,10 @@ def _normal_interval(score_pct: float, sample_size: int | None) -> tuple[float |
 class ArtificialAnalysisHtmlAdapter(SourceAdapter):
     """Read public, server-embedded AA evaluation measurements.
 
-    The public Omniscience page serializes the complete model measurement table
-    as ``defaultData``.  We only import a field when its canonical token-count
-    record is present, which distinguishes an independently run AA evaluation
-    from lab-claimed or absent values.
+    The public evaluation pages serialize measured models as ``defaultData``
+    or, after AA's 2026-08 redesign, as ``initialModels``.  We only import a
+    field when its canonical token-count record is present, which distinguishes
+    an independently run AA evaluation from lab-claimed or absent values.
     """
 
     def parse(self, result: FetchResult) -> list[Observation]:
@@ -74,19 +132,7 @@ class ArtificialAnalysisHtmlAdapter(SourceAdapter):
             text = result.content.decode("utf-8")
         except UnicodeDecodeError as exc:
             raise AdapterError(f"{self.source_id}: response is not UTF-8") from exc
-        stripped = text.lstrip()
-        if stripped.startswith("[") or stripped.startswith("{"):
-            try:
-                payload = json.loads(text)
-            except json.JSONDecodeError as exc:
-                raise AdapterError(f"{self.source_id}: invalid JSON snapshot") from exc
-            rows = payload.get(self.source.get("payload_key", "defaultData"), payload) if isinstance(payload, dict) else payload
-        else:
-            rows = _json_value_after(
-                _flight_text(text), self.source.get("payload_key", "defaultData")
-            )
-        if not isinstance(rows, list):
-            raise AdapterError(f"{self.source_id}: expected a model list")
+        rows = extract_aa_model_rows(text, self.source.get("payload_key", "defaultData"))
         fields: dict[str, dict[str, Any]] = self.source.get("score_fields", {})
         observations: list[Observation] = []
         for row in rows:
@@ -94,8 +140,8 @@ class ArtificialAnalysisHtmlAdapter(SourceAdapter):
                 continue
             name = str(row.get("name") or row.get("short_name") or "").strip()
             slug = str(row.get("slug") or "").strip()
-            release_date = str(row.get("release_date") or row.get("releaseDate") or "")
-            creator = row.get("model_creators") or row.get("creator") or {}
+            release_date = str(row.get("release_date") or "")
+            creator = row.get("model_creators") or {}
             provider = str(creator.get("slug") or creator.get("name") or "")
             if not name or not slug or not release_date:
                 continue

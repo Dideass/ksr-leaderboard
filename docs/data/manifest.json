@@ -1,12 +1,12 @@
 {
   "config_warnings": [],
-  "data_hash": "1cedb7bec5be95db9d8040698e1baa33c15ee4149ae93dc76a7e7dcb9e470734",
-  "eligible_observation_count": 2753,
-  "generated_at": "2026-08-18T07:47:39+00:00",
+  "data_hash": "4d45d6b822c5d7a27a5b4cc323ae7abb023f15762a5713222ab1275d8b4f8bf4",
+  "eligible_observation_count": 2758,
+  "generated_at": "2026-08-19T02:06:36+00:00",
   "governance": [
     {
       "benchmark_id": "hle",
-      "model_count": 478,
+      "model_count": 479,
       "notes": "Artificial Analysis 2,158-question text-only run; no tools.",
       "saturation_review_signal": false,
       "status": "active",
@@ -16,7 +16,7 @@
     },
     {
       "benchmark_id": "gpqa_diamond",
-      "model_count": 480,
+      "model_count": 481,
       "notes": "AA 198-question Diamond set, 5 repeats, no tools.",
       "saturation_review_signal": true,
       "status": "active",
@@ -36,7 +36,7 @@
     },
     {
       "benchmark_id": "critpt",
-      "model_count": 479,
+      "model_count": 480,
       "notes": "70 challenges × 5 repeats. Answers may be Python functions, but the model has no code-execution tool.",
       "saturation_review_signal": true,
       "status": "active",
@@ -76,7 +76,7 @@
     },
     {
       "benchmark_id": "aa_lcr",
-      "model_count": 422,
+      "model_count": 423,
       "notes": "",
       "saturation_review_signal": true,
       "status": "active",
@@ -86,7 +86,7 @@
     },
     {
       "benchmark_id": "aa_omniscience",
-      "model_count": 480,
+      "model_count": 481,
       "notes": "",
       "saturation_review_signal": false,
       "status": "active",
@@ -123,26 +123,26 @@
       "deepseek/deepseek-v4-pro"
     ],
     "benchmark_participants": {
-      "aa_lcr": 287,
-      "aa_omniscience": 288,
+      "aa_lcr": 288,
+      "aa_omniscience": 289,
       "arc_agi_2": 45,
-      "critpt": 288,
-      "gpqa_diamond": 288,
-      "hle": 288,
+      "critpt": 289,
+      "gpqa_diamond": 289,
+      "hle": 289,
       "livebench_data_analysis": 39,
       "livebench_math": 39,
       "livebench_reasoning": 39,
       "mmlu_pro": 83
     },
-    "candidate_models": 380,
-    "comparison_circle_models": 290,
+    "candidate_models": 381,
+    "comparison_circle_models": 291,
     "insufficient_count": 92,
     "method": "weighted_bradley_terry",
     "method_ready": true,
     "missing_policy": "no_imputation_no_penalty_no_weight_transfer",
-    "pairwise_comparisons": 212969,
-    "ranked_count": 288,
-    "ranked_models": 288,
+    "pairwise_comparisons": 214408,
+    "ranked_count": 289,
+    "ranked_models": 289,
     "representative_policy": "highest_reasoning_effort_then_source_then_date",
     "requested_anchors": [
       "anthropic/claude-opus-5",
@@ -158,35 +158,34 @@
       "alibaba/qwen3.8-max",
       "deepseek/deepseek-v4-pro"
     ],
-    "row_count": 380
+    "row_count": 381
   },
   "method_hash": "2fc0dabed9b2c2e3160a51b4253d093c6ebf68dcf6a6649caf4de0b46cc41ead",
-  "observation_count": 2753,
+  "observation_count": 2758,
   "parquet": {
     "error": "",
     "written": true
   },
-  "snapshot_id": "v3.5.0-2fc0dabe-1cedb7be",
+  "snapshot_id": "v3.5.0-2fc0dabe-4d45d6b8",
   "sources": {
     "aa_public_measurements": {
       "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-      "checked_at": "2026-08-18T07:47:29+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
       "exclusion_notes": {},
       "last_modified": "",
-      "raw_path": "data\\raw\\aa_public_measurements\\5b31d12cf18792044a0da28541e33c732ea92f586d7cde76e25beb8318928ff5.json",
+      "raw_path": "data\\raw\\aa_public_measurements\\2a293ac501b27f0b9679910a691f090fb349069049ace4189ccb4f9c6cf3f33c.json",
       "reparsed_from_cache": false,
-      "retrieved_at": "2026-08-18T03:11:42+00:00",
-      "row_count": 2339,
-      "sha256": "5b31d12cf18792044a0da28541e33c732ea92f586d7cde76e25beb8318928ff5",
+      "retrieved_at": "2026-08-19T02:06:23+00:00",
+      "row_count": 2344,
+      "sha256": "2a293ac501b27f0b9679910a691f090fb349069049ace4189ccb4f9c6cf3f33c",
       "source_config_sha256": "004ae532f4fe45a4a07ff2f74dde71788c8201545efdf3946c88dc51ae73c0e3",
       "status": "ok"
     },
     "arc_agi_2_verified_cot": {
       "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-      "checked_at": "2026-08-18T07:47:29+00:00",
+      "checked_at": "2026-08-19T02:06:24+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
@@ -202,7 +201,7 @@
     },
     "livebench_release": {
       "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-      "checked_at": "2026-08-18T07:47:29+00:00",
+      "checked_at": "2026-08-19T02:06:23+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
@@ -218,7 +217,7 @@
     },
     "manual_observations": {
       "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-      "checked_at": "2026-08-18T07:47:29+00:00",
+      "checked_at": "2026-08-19T02:06:23+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
@@ -234,7 +233,7 @@
     },
     "vals_mmlu_pro": {
       "aliases_sha256": "fc07d3104da819b53ade1a8f5f078cc1aa2dd8317435c1db2fab233927380eff",
-      "checked_at": "2026-08-18T07:47:29+00:00",
+      "checked_at": "2026-08-19T02:06:24+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],

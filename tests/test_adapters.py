@@ -68,6 +68,42 @@ class AdapterTests(unittest.TestCase):
         self.assertIn("fallback", fable.notes.lower())
         self.assertEqual(fable.raw_score, 0.99)
 
+    def test_artificial_analysis_initial_models_camelcase_payload(self):
+        source = {
+            "id": "aa-public-test",
+            "adapter": "artificial_analysis_html",
+            "minimum_rows": 1,
+            "source_tier": "independent",
+            "public_url": "https://example.test/aa",
+            "score_fields": {
+                "hle": {
+                    "field": "hle", "token_key": "hle", "version": "aa-v1",
+                    "metric": "canonical", "sample_size": 2158,
+                },
+                "critpt": {
+                    "field": "critpt", "token_key": "critpt", "version": "aa-v1",
+                    "metric": "pass_rate", "sample_size": 350,
+                },
+            },
+        }
+        adapter = ArtificialAnalysisHtmlAdapter(source, AliasRegistry([]))
+        data = [{
+            "name": "GLM-5.3 (max)", "slug": "glm-5-3", "shortName": "GLM-5.3 (max)",
+            "releaseDate": "2026-08-18", "deprecated": False,
+            "creator": {"slug": "zai", "name": "Z AI"},
+            "hle": 0.4226, "critpt": 0.1914,
+            "canonicalEvalTokenCounts": {"hle": {"input": 1}, "critpt": {"input": 1}},
+        }]
+        flight = '1:["$","div",null,{"slug":"omniscience","initialModels":' + json.dumps(data) + "}]"
+        script = "<script>self.__next_f.push(" + json.dumps([1, flight]) + ")</script>"
+        fetched = FetchResult("aa-public-test", script.encode(), "text/html", "2026-08-19T00:00:00+00:00", 200)
+        observations = adapter.parse(fetched)
+        adapter.validate(observations)
+        self.assertEqual({item.family_id for item in observations}, {"zhipu/glm-5.3"})
+        by_bench = {item.benchmark_id: item for item in observations}
+        self.assertAlmostEqual(by_bench["hle"].raw_score, 0.4226)
+        self.assertEqual(by_bench["hle"].reasoning_effort, "max")
+
     def test_artificial_analysis_json_snapshot_imports_hle(self):
         source = {
             "id": "aa-json-test",

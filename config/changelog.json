@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-08-19",
+    "title": "GLM-5.3 added from Artificial Analysis",
+    "summary": "AA now reports GLM-5.3 (max). KSR ingested those native no-tool scores and rebuilt the board.",
+    "body": "Humanity's Last Exam, GPQA Diamond, CritPt, Long Context Reasoning, and Omniscience use the new AA catalog row. Other sources are unchanged."
+  },
+  {
     "date": "2026-08-18",
     "title": "HLE now uses Artificial Analysis only",
     "summary": "Every HLE score on the board comes from the AA text-only catalog. The official Scale board is no longer mixed in.",

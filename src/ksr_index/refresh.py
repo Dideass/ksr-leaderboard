@@ -9,7 +9,7 @@ from typing import Any
 
 import httpx
 
-from .adapters.artificial_analysis import _flight_text, _json_value_after
+from .adapters.artificial_analysis import extract_aa_model_rows
 from .adapters.base import AdapterError
 from .adapters.arc_prize import slim_arc_leaderboard
 from .adapters.vals import extract_vals_benchmark_view, slim_vals_leaderboard
@@ -56,24 +56,34 @@ def _resolve_path(root: Path, value: str) -> Path:
 
 
 def _freeze_aa_catalog(content: bytes, destination: Path) -> dict[str, Any]:
-    text = content.decode("utf-8")
-    stripped = text.lstrip()
-    if stripped.startswith("[") or stripped.startswith("{"):
-        payload = json.loads(text)
-        rows = payload if isinstance(payload, list) else payload.get("defaultData", [])
+    incoming = [
+        {key: row.get(key) for key in AA_KEEP_FIELDS}
+        for row in extract_aa_model_rows(content.decode("utf-8"))
+        if row.get("slug")
+    ]
+    by_slug = {str(row["slug"]): row for row in incoming}
+    merged_from_existing = 0
+    if destination.is_file():
+        previous = json.loads(destination.read_text(encoding="utf-8"))
+        if isinstance(previous, list) and len(previous) > max(32, len(by_slug) * 2):
+            merged = {
+                str(row.get("slug")): {key: row.get(key) for key in AA_KEEP_FIELDS}
+                for row in previous
+                if isinstance(row, dict) and row.get("slug")
+            }
+            merged_from_existing = len(merged)
+            merged.update(by_slug)
+            slim = list(merged.values())
+        else:
+            slim = list(by_slug.values())
     else:
-        rows = _json_value_after(_flight_text(text), "defaultData")
-    if not isinstance(rows, list):
-        raise AdapterError("Artificial Analysis snapshot is not a model list")
-    slim = []
-    for row in rows:
-        if not isinstance(row, dict):
-            continue
-        slim.append({key: row.get(key) for key in AA_KEEP_FIELDS})
+        slim = list(by_slug.values())
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps(slim, ensure_ascii=False), encoding="utf-8")
     return {
         "models": len(slim),
+        "incoming": len(by_slug),
+        "merged_from_existing": merged_from_existing,
         "hle": sum(item.get("hle") is not None for item in slim),
         "gpqa": sum(item.get("gpqa") is not None for item in slim),
         "critpt": sum(item.get("critpt") is not None for item in slim),
