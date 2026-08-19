@@ -418,7 +418,23 @@ main, footer { width: min(1540px, calc(100% - 48px)); margin: 0 auto; }
 .updates-teaser__date { grid-area: date; color: var(--ink-2); font: 12px var(--data); }
 .updates-teaser__title { grid-area: title; font: 650 16px var(--body); }
 .updates-teaser__summary { grid-area: summary; margin-top: 3px; color: var(--ink-2); font-size: 13px; }
-.updates-teaser__action { grid-area: action; color: var(--teal-dark); font: 700 12px var(--data); }
+.updates-teaser__action {
+  grid-area: action;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--teal-dark);
+  font: 700 12px var(--data);
+}
+/* SVG arrow: iOS maps U+2197 to Apple Color Emoji. */
+.text-arrow {
+  display: inline-block;
+  width: .85em;
+  height: .85em;
+  flex: 0 0 auto;
+  vertical-align: -.12em;
+  overflow: visible;
+}
 .data-notice { margin: 18px 0 0; padding: 14px 18px; color: #5d461e; background: #f7ecd8; border-left: 3px solid var(--amber); font-size: 13px; }
 .data-notice strong { margin-right: 10px; }
 
@@ -460,7 +476,18 @@ main, footer { width: min(1540px, calc(100% - 48px)); margin: 0 auto; }
 .model-link { width: 100%; display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; column-gap: 12px; padding: 0; text-align: left; background: transparent; border: 0; cursor: pointer; }
 .model-link__name { font-weight: 690; font-size: 15px; }
 .model-link__provider { color: var(--ink-2); font: 10px var(--data); }
-.model-link__arrow { grid-column: 2; grid-row: 1 / 3; align-self: center; color: var(--teal); transform: translateX(0); transition: transform .15s ease; }
+.model-link__arrow {
+  display: block;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  width: 12px;
+  height: 12px;
+  color: var(--teal);
+  vertical-align: unset;
+  transform: translateX(0);
+  transition: transform .15s ease;
+}
 .model-link:hover .model-link__arrow { transform: translateX(3px); }
 .evidence-bar { height: 4px; margin-top: 10px; display: flex; gap: 1px; background: transparent; }
 .evidence-bar i { flex: var(--segment) 1 0; min-width: 1px; }
@@ -566,7 +593,7 @@ meter::-moz-meter-bar { background: var(--teal); }
 .benchmark-detail dt { color: var(--ink-2); font: 8px var(--data); text-transform: uppercase; }
 .benchmark-detail dd { overflow: hidden; margin: 3px 0 0; font: 10px var(--data); text-overflow: ellipsis; white-space: nowrap; }
 .benchmark-detail__note { margin: 13px 0 0; color: var(--ink-2); font-size: 10px; line-height: 1.45; }
-.benchmark-detail a { display: inline-block; margin-top: 16px; color: var(--teal-dark); font: 10px var(--data); text-underline-offset: 3px; }
+.benchmark-detail a { display: inline-flex; align-items: center; gap: 5px; margin-top: 16px; color: var(--teal-dark); font: 10px var(--data); text-underline-offset: 3px; }
 .benchmark-detail__missing { margin-top: 50px; color: var(--ink-2); font: 12px var(--data); }
 
 footer { display: flex; justify-content: space-between; gap: 30px; margin-top: 90px; padding: 30px 0 48px; color: var(--ink-2); border-top: 1px solid var(--rule-dark); font: 10px var(--data); }

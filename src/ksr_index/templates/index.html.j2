@@ -10,6 +10,10 @@
   <script defer src="app.js"></script>
 </head>
 <body>
+  {# SVG arrows: iOS substitutes Apple Color Emoji for U+2197. #}
+  {% macro ne_arrow(extra="") -%}
+  <svg class="text-arrow{% if extra %} {{ extra }}{% endif %}" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 9 9 3M4.2 3H9V7.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"/></svg>
+  {%- endmacro %}
   <a class="skip-link" href="#leaderboard">Skip to leaderboard</a>
   <header class="topbar">
     <a class="brand" href="#top" aria-label="KSR home">
@@ -111,7 +115,7 @@
         <span class="updates-teaser__date">{{ latest_update.date }}</span>
         <span class="updates-teaser__title">{{ latest_update.title }}</span>
         <span class="updates-teaser__summary">{{ latest_update.summary }}</span>
-        <span class="updates-teaser__action">History ↗</span>
+        <span class="updates-teaser__action">History {{ ne_arrow() }}</span>
       </button>
     </section>
     {% endif %}
@@ -197,7 +201,7 @@
                 <button class="model-link" type="button" data-open-model="{{ loop.index0 }}">
                   <span class="model-link__name">{{ row.display_name }}</span>
                   <span class="model-link__provider">{{ row.provider }}</span>
-                  <span class="model-link__arrow" aria-hidden="true">↗</span>
+                  {{ ne_arrow("model-link__arrow") }}
                 </button>
                 <div class="evidence-bar" aria-label="{{ row.observed_benchmarks }} benchmarks with a direct score">
                   {% for benchmark_id, component in row.components.items() %}
@@ -328,7 +332,7 @@
               <div><dt>Configuration</dt><dd title="{{ component.model_id }}">{{ component.model_id }}</dd></div>
             </dl>
             {% if component.notes %}<p class="benchmark-detail__note">{{ component.notes }}</p>{% endif %}
-            <a href="{{ component.source_url }}" target="_blank" rel="noreferrer">Check source ↗</a>
+            <a href="{{ component.source_url }}" target="_blank" rel="noreferrer">Check source {{ ne_arrow() }}</a>
             {% else %}
             <div class="benchmark-detail__missing">Not scored · not imputed</div>
             {% endif %}
