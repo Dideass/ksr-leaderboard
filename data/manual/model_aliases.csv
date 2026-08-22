@@ -46,6 +46,7 @@ livebench_release,gemini-3.6-flash-high,google,gemini-3.6-flash-high,google/gemi
 livebench_release,gemini-3.7-flash-high,google,gemini-3.7-flash-high,google/gemini-3.7-flash,Gemini 3.7 Flash high,2026-08-13,high,true,false,,,,
 livebench_release,deepseek-v4-flash-0731,deepseek,deepseek-v4-flash-0731,deepseek/deepseek-v4-flash,DeepSeek V4 Flash 0731,2026-07-31,default,true,false,,,,
 livebench_release,deepseek-v4-pro-0813,deepseek,deepseek-v4-pro-0813,deepseek/deepseek-v4-pro,DeepSeek V4 Pro 0813,2026-08-13,default,true,false,,,,
+livebench_release,ox-alpha-max,stealth,ox-alpha-max,stealth/ox-alpha,Ox Alpha max,2026-08-20,max,true,false,,,,
 *,Gemini 3.1 Pro Preview,google,gemini-3.1-pro-preview,google/gemini-3.1-pro-preview,Gemini 3.1 Pro Preview,2026-03-10,default,true,false,,,,
 *,Gemini 3.5 Flash,google,gemini-3.5-flash,google/gemini-3.5-flash,Gemini 3.5 Flash,2026-06-01,default,true,false,,,,
 *,Claude Opus 4.5,anthropic,claude-opus-4-5-20251101,anthropic/claude-opus-4.5,Claude Opus 4.5,2025-11-01,default,true,false,,,,

@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-08-22",
+    "title": "Fresh benchmark snapshots ingested",
+    "summary": "The enabled source snapshots were refreshed and new model configurations were added to the board.",
+    "body": "LiveBench adds Qwen3.8 27B, Ox Alpha max, and DeepSeek V4 Flash Vision Experimental; Vals adds GLM-5.3 and Qwen3.8 27B; ARC-AGI-2 adds eight verified CoT configurations. Artificial Analysis was rechecked and its retained catalog was updated."
+  },
+  {
     "date": "2026-08-19",
     "title": "GLM-5.3 added from Artificial Analysis",
     "summary": "AA now reports GLM-5.3 (max). KSR ingested those native no-tool scores and rebuilt the board.",
