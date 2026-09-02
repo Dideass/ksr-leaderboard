@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-09-02",
+    "title": "September benchmark refresh and Fable 5.1 added",
+    "summary": "All enabled benchmark snapshots were refreshed and the newly measured Fable 5.1 family is now represented on the board.",
+    "body": "Artificial Analysis, LiveBench, Vals MMLU-Pro, and ARC-AGI-2 were refreshed. The update adds Claude Fable 5.1 configurations across the available sources, plus GLM-5.3 Flash, Qwen3.8 Flash Next, and NVIDIA Nemotron 3 Ultra 550B A55B; model aliases were added where source naming needed explicit identity mapping."
+  },
+  {
     "date": "2026-08-22",
     "title": "Fresh benchmark snapshots ingested",
     "summary": "The enabled source snapshots were refreshed and new model configurations were added to the board.",
