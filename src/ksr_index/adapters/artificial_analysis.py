@@ -151,6 +151,29 @@ class ArtificialAnalysisHtmlAdapter(SourceAdapter):
                 provider=provider,
                 release_date=release_date,
             )
+            alias = self.aliases.resolve(self.source_id, name)
+            if alias:
+                identity = {
+                    **identity,
+                    **{
+                        key: alias[key]
+                        for key in (
+                            "provider",
+                            "model_id",
+                            "family_id",
+                            "display_name",
+                            "endpoint_date",
+                            "reasoning_effort",
+                            "protocol_compatible",
+                            "mutable_alias",
+                            "input_cost_per_million",
+                            "output_cost_per_million",
+                            "speed_tokens_per_second",
+                            "context_window_tokens",
+                        )
+                        if alias.get(key) not in (None, "")
+                    },
+                }
             token_counts = row.get("canonical_eval_token_counts") or {}
             for benchmark_id, spec in fields.items():
                 field = str(spec.get("field") or benchmark_id)

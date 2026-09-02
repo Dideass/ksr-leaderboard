@@ -21,6 +21,47 @@ from ksr_index.adapters.wide_csv import CategoryMeanCsvAdapter, WideCsvAdapter
 
 
 class AdapterTests(unittest.TestCase):
+    def test_artificial_analysis_uses_explicit_identity_alias(self):
+        source = {
+            "id": "aa-alias-test",
+            "adapter": "artificial_analysis_html",
+            "minimum_rows": 1,
+            "source_tier": "independent",
+            "public_url": "https://example.test/aa",
+            "score_fields": {
+                "hle": {
+                    "field": "hle", "token_key": "hle", "version": "aa-v1",
+                    "metric": "canonical", "sample_size": 2158,
+                },
+            },
+        }
+        aliases = AliasRegistry([{
+            "source_id": "aa-alias-test",
+            "source_model_name": "Nemotron 3 Ultra 550B A55B (Reasoning)",
+            "provider": "nvidia",
+            "model_id": "nemotron-3-ultra-550b-a55b",
+            "family_id": "nvidia/nemotron-3-ultra-550b-a55b",
+            "display_name": "NVIDIA Nemotron 3 Ultra 550B A55B",
+            "endpoint_date": "2026-06-04",
+            "reasoning_effort": "default",
+            "protocol_compatible": "true",
+            "mutable_alias": "false",
+        }])
+        adapter = ArtificialAnalysisHtmlAdapter(source, aliases)
+        data = [{
+            "name": "Nemotron 3 Ultra 550B A55B (Reasoning)",
+            "slug": "nvidia-nemotron-3-ultra-550b-a55b",
+            "release_date": "2026-06-04", "deleted": False,
+            "model_creators": {"slug": "nvidia"}, "hle": 0.4,
+            "canonical_eval_token_counts": {"hle": {"input": 1}},
+        }]
+        flight = '1:["$","div",null,{"defaultData":' + json.dumps(data) + '}]'
+        script = "<script>self.__next_f.push(" + json.dumps([1, flight]) + ")</script>"
+        fetched = FetchResult("aa-alias-test", script.encode(), "text/html", "2026-09-02T00:00:00+00:00", 200)
+        observations = adapter.parse(fetched)
+        self.assertEqual({item.family_id for item in observations}, {"nvidia/nemotron-3-ultra-550b-a55b"})
+        self.assertEqual(observations[0].display_name, "NVIDIA Nemotron 3 Ultra 550B A55B")
+
     def test_artificial_analysis_public_payload_imports_measured_fields(self):
         source = {
             "id": "aa-public-test",
