@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-09-04",
+    "title": "Astra and Gemini 3.8 Flash benchmark refresh",
+    "summary": "The enabled benchmark snapshots were refreshed again and the latest Astra, Gemini, Muse, and K2 configurations were added to the board.",
+    "body": "Artificial Analysis, LiveBench, Vals MMLU-Pro, and ARC-AGI-2 were refreshed. GPT-6 Astra, Gemini 3.8 Flash, Muse Spark 1.3, and K2 Horizon 375B A23B now have cross-source identities where available; the scoring method and frozen ten-benchmark basket are unchanged."
+  },
+  {
     "date": "2026-09-02",
     "title": "September benchmark refresh and Fable 5.1 added",
     "summary": "All enabled benchmark snapshots were refreshed and the newly measured Fable 5.1 family is now represented on the board.",
