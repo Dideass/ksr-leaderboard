@@ -253,10 +253,6 @@ def build_adapter(source: dict[str, Any], aliases: AliasRegistry) -> SourceAdapt
         from .artificial_analysis import ArtificialAnalysisHtmlAdapter
 
         return ArtificialAnalysisHtmlAdapter(source, aliases)
-    if adapter_type == "vals_html":
-        from .vals import ValsHtmlAdapter
-
-        return ValsHtmlAdapter(source, aliases)
     if adapter_type == "arc_prize_json":
         from .arc_prize import ArcPrizeLeaderboardAdapter
 

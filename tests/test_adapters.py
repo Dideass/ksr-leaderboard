@@ -16,7 +16,6 @@ from ksr_index.adapters.kaggle import KaggleLeaderboardAdapter
 from ksr_index.adapters.manual import ManualCsvAdapter
 from ksr_index.adapters.matharena import MathArenaParquetAdapter
 from ksr_index.adapters.arc_prize import ArcPrizeLeaderboardAdapter
-from ksr_index.adapters.vals import ValsHtmlAdapter
 from ksr_index.adapters.wide_csv import CategoryMeanCsvAdapter, WideCsvAdapter
 
 
@@ -191,63 +190,6 @@ class AdapterTests(unittest.TestCase):
             by_bench["hle"].source_url,
             "https://example.test/hle",
         )
-
-    def test_vals_json_snapshot_imports_mmlu_pro(self):
-        source = {
-            "id": "vals-mmlu-test",
-            "adapter": "vals_html",
-            "minimum_rows": 1,
-            "source_tier": "independent",
-            "public_url": "https://www.vals.ai/benchmarks/mmlu_pro",
-            "benchmark_id": "mmlu_pro",
-            "benchmark_version": "vals-test",
-            "protocol_hash": "vals-mmlu-pro-test",
-            "sample_size": 12032,
-            "tool_mode": "none",
-            "modality": "text",
-        }
-        adapter = ValsHtmlAdapter(source, AliasRegistry([]))
-        payload = {
-            "updated": "2026-08-15",
-            "benchmark": "mmlu_pro",
-            "models": [
-                {
-                    "id": "openai/gpt-5.6-sol",
-                    "provider": "OpenAI",
-                    "accuracy": 89.1,
-                    "stderr": 0.308,
-                    "reasoning_effort": "max",
-                    "compute_effort": None,
-                },
-                {
-                    "id": "anthropic/claude-fable-5",
-                    "provider": "Anthropic",
-                    "accuracy": 91.502,
-                    "stderr": 0.278,
-                    "reasoning_effort": None,
-                    "compute_effort": "max",
-                },
-            ],
-        }
-        fetched = FetchResult(
-            "vals-mmlu-test",
-            json.dumps(payload).encode(),
-            "application/json",
-            "2026-08-18T00:00:00+00:00",
-            200,
-        )
-        observations = adapter.parse(fetched)
-        adapter.validate(observations)
-        by_family = {item.family_id: item for item in observations}
-        self.assertEqual(set(by_family), {"openai/gpt-5.6-sol", "anthropic/claude-fable-5"})
-        sol = by_family["openai/gpt-5.6-sol"]
-        fable = by_family["anthropic/claude-fable-5"]
-        self.assertEqual(sol.benchmark_id, "mmlu_pro")
-        self.assertAlmostEqual(sol.raw_score, 89.1)
-        self.assertEqual(sol.reasoning_effort, "max")
-        self.assertEqual(fable.reasoning_effort, "max")
-        self.assertTrue(sol.is_eligible_native_no_tool())
-        self.assertAlmostEqual(sol.ci_low, 89.1 - 1.96 * 0.308, places=5)
 
     def test_arc_prize_json_imports_verified_cot_only(self):
         source = {

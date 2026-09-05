@@ -1,5 +1,5 @@
 {
-  "version": "3.5.0",
+  "version": "3.6.0",
   "dimensions": {
     "general_knowledge": "Factual knowledge",
     "scientific_knowledge": "Academic and professional knowledge",
@@ -10,17 +10,17 @@
     "epistemic_reliability": "Epistemic reliability"
   },
   "settings": {
-    "scoring_revision": "bt-2026-08-18-hle-aa-only",
+    "scoring_revision": "bt-2026-09-05-gdp-pdf-aa",
     "pairwise_budget_units": 84.0,
     "prior_sigma": 2.0,
-    "entry_min_coverage": 0.40,
+    "entry_min_coverage": 0.4,
     "entry_min_benchmarks": 5,
     "entry_min_dimensions": 3,
     "entry_min_anchor_matches": 2,
     "minimum_available_anchors": 6,
-    "confidence_high_min_coverage": 0.80,
+    "confidence_high_min_coverage": 0.8,
     "confidence_high_min_benchmarks": 7,
-    "confidence_medium_min_coverage": 0.50,
+    "confidence_medium_min_coverage": 0.5,
     "anchor_version": "2026-08-18-a",
     "anchors": [
       "anthropic/claude-opus-5",
@@ -42,7 +42,6 @@
         "benchmarks": [
           "hle",
           "gpqa_diamond",
-          "mmlu_pro",
           "critpt",
           "aa_omniscience"
         ]
@@ -54,7 +53,8 @@
           "livebench_math",
           "livebench_data_analysis",
           "aa_lcr",
-          "arc_agi_2"
+          "arc_agi_2",
+          "gdp_pdf"
         ]
       }
     ],
@@ -69,7 +69,9 @@
       "metric_type": "canonical",
       "chance_baseline": 0,
       "source_platform": "hle",
-      "weights": {"index": 0.15},
+      "weights": {
+        "index": 0.15
+      },
       "source_url": "https://artificialanalysis.ai/evaluations/humanitys-last-exam",
       "notes": "Artificial Analysis 2,158-question text-only run; no tools."
     },
@@ -81,21 +83,25 @@
       "metric_type": "multiple_choice",
       "chance_baseline": 0.25,
       "source_platform": "gpqa",
-      "weights": {"index": 0.10},
+      "weights": {
+        "index": 0.1
+      },
       "source_url": "https://artificialanalysis.ai/evaluations/gpqa-diamond",
       "notes": "AA 198-question Diamond set, 5 repeats, no tools."
     },
     {
-      "id": "mmlu_pro",
-      "title": "MMLU-Pro — Vals 5-shot CoT",
-      "dimension": "general_knowledge",
+      "id": "gdp_pdf",
+      "title": "GDP.pdf — AA All-pass, No Tools",
+      "dimension": "context_reasoning",
       "status": "active",
-      "metric_type": "multiple_choice",
-      "chance_baseline": 0.10,
-      "source_platform": "vals",
-      "weights": {"index": 0.10},
-      "source_url": "https://www.vals.ai/benchmarks/mmlu_pro",
-      "notes": "Vals.ai 5-shot chain-of-thought run of the official 10-option, 14-subject protocol. Overall score is the mean of the 14 subjects."
+      "metric_type": "pass_rate",
+      "chance_baseline": 0,
+      "source_platform": "artificial_analysis",
+      "weights": {
+        "index": 0.1
+      },
+      "source_url": "https://artificialanalysis.ai/evaluations/gdp-pdf",
+      "notes": "AA All-pass: 100 professional document tasks across 10 domains, 5 attempts per task. Every criterion must pass. Extracted text for all models plus page images for image-capable models; single turn, no tools or browsing. No synthetic confidence interval from correlated repeats."
     },
     {
       "id": "critpt",
@@ -105,7 +111,9 @@
       "metric_type": "pass_rate",
       "chance_baseline": 0,
       "source_platform": "critpt",
-      "weights": {"index": 0.15},
+      "weights": {
+        "index": 0.15
+      },
       "source_url": "https://artificialanalysis.ai/evaluations/critpt",
       "notes": "70 challenges × 5 repeats. Answers may be Python functions, but the model has no code-execution tool."
     },
@@ -117,7 +125,9 @@
       "metric_type": "canonical",
       "chance_baseline": 0,
       "source_platform": "livebench",
-      "weights": {"index": 0.10},
+      "weights": {
+        "index": 0.1
+      },
       "source_url": "https://livebench.ai/",
       "notes": "Equal-weight mean of AMPS_Hard, integrals_with_game, math_comp, and olympiad."
     },
@@ -129,7 +139,9 @@
       "metric_type": "canonical",
       "chance_baseline": 0,
       "source_platform": "livebench",
-      "weights": {"index": 0.10},
+      "weights": {
+        "index": 0.1
+      },
       "source_url": "https://livebench.ai/"
     },
     {
@@ -140,20 +152,25 @@
       "metric_type": "canonical",
       "chance_baseline": 0,
       "source_platform": "livebench",
-      "weights": {"index": 0.05},
+      "weights": {
+        "index": 0.05
+      },
       "source_url": "https://livebench.ai/",
       "notes": "Equal-weight mean of consecutive_events, tablejoin, and tablereformat."
     },
     {
       "id": "aa_lcr",
-      "title": "Artificial Analysis Long Context Reasoning",
+      "title": "Artificial Analysis Long Context Reasoning v1.1",
       "dimension": "context_reasoning",
       "status": "active",
       "metric_type": "pass_rate",
       "chance_baseline": 0,
       "source_platform": "artificial_analysis",
-      "weights": {"index": 0.05},
-      "source_url": "https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning"
+      "weights": {
+        "index": 0.05
+      },
+      "source_url": "https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning",
+      "notes": "AA-LCR v1.1: 100 long-document questions, 3 repeats; no tools."
     },
     {
       "id": "aa_omniscience",
@@ -164,7 +181,9 @@
       "chance_baseline": 0,
       "source_platform": "artificial_analysis",
       "special_transform": "omniscience_floor_zero",
-      "weights": {"index": 0.10},
+      "weights": {
+        "index": 0.1
+      },
       "source_url": "https://artificialanalysis.ai/evaluations/omniscience"
     },
     {
@@ -175,7 +194,9 @@
       "metric_type": "pass_rate",
       "chance_baseline": 0,
       "source_platform": "arc_prize",
-      "weights": {"index": 0.10},
+      "weights": {
+        "index": 0.1
+      },
       "source_url": "https://arcprize.org/leaderboard",
       "notes": "Official ARC Prize verified CoT rows on the semi-private 120-task board. Custom, synthesis, refinement, Kaggle, and tool-using systems are excluded."
     }

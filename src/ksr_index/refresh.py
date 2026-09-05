@@ -3,16 +3,17 @@ from __future__ import annotations
 import csv
 import io
 import json
-import os
+import gzip
+import hashlib
 from pathlib import Path
 from typing import Any
+from urllib.parse import urljoin
 
 import httpx
 
-from .adapters.artificial_analysis import extract_aa_model_rows
+from .adapters.artificial_analysis import AA_SCORE_FIELDS, extract_aa_catalog_manifest, extract_aa_model_rows
 from .adapters.base import AdapterError
 from .adapters.arc_prize import slim_arc_leaderboard
-from .adapters.vals import extract_vals_benchmark_view, slim_vals_leaderboard
 
 
 AA_KEEP_FIELDS = (
@@ -23,18 +24,12 @@ AA_KEEP_FIELDS = (
     "deleted",
     "model_creators",
     "canonical_eval_token_counts",
-    "hle",
-    "gpqa",
-    "critpt",
-    "lcr",
-    "omniscience",
+    "input_modality_image",
+    *AA_SCORE_FIELDS,
 )
 
 
 def _http_get(url: str, timeout_seconds: float) -> httpx.Response:
-    for key in list(os.environ):
-        if "proxy" in key.lower():
-            os.environ.pop(key, None)
     headers = {
         "User-Agent": "KSR-Index/0.1 (+manual snapshot)",
         "Accept": "application/json,text/csv,text/html;q=0.9,*/*;q=0.5",
@@ -43,7 +38,7 @@ def _http_get(url: str, timeout_seconds: float) -> httpx.Response:
         follow_redirects=True,
         timeout=timeout_seconds,
         headers=headers,
-        trust_env=False,
+        trust_env=True,
     ) as client:
         response = client.get(url)
         response.raise_for_status()
@@ -55,7 +50,9 @@ def _resolve_path(root: Path, value: str) -> Path:
     return path if path.is_absolute() else root / path
 
 
-def _freeze_aa_catalog(content: bytes, destination: Path) -> dict[str, Any]:
+def _freeze_aa_catalog(
+    content: bytes, destination: Path, *, preserve_existing: bool = True
+) -> dict[str, Any]:
     incoming = [
         {key: row.get(key) for key in AA_KEEP_FIELDS}
         for row in extract_aa_model_rows(content.decode("utf-8"))
@@ -65,7 +62,7 @@ def _freeze_aa_catalog(content: bytes, destination: Path) -> dict[str, Any]:
     merged_from_existing = 0
     if destination.is_file():
         previous = json.loads(destination.read_text(encoding="utf-8"))
-        if isinstance(previous, list) and len(previous) > max(32, len(by_slug) * 2):
+        if preserve_existing and isinstance(previous, list) and len(previous) > max(32, len(by_slug) * 2):
             merged = {
                 str(row.get("slug")): {key: row.get(key) for key in AA_KEEP_FIELDS}
                 for row in previous
@@ -88,27 +85,30 @@ def _freeze_aa_catalog(content: bytes, destination: Path) -> dict[str, Any]:
         "gpqa": sum(item.get("gpqa") is not None for item in slim),
         "critpt": sum(item.get("critpt") is not None for item in slim),
         "omniscience": sum(item.get("omniscience") is not None for item in slim),
+        "gdp_pdf": sum(item.get("gdp_pdf") is not None for item in slim),
     }
 
 
-def _freeze_vals_mmlu_pro(content: bytes, destination: Path) -> dict[str, Any]:
-    text = content.decode("utf-8")
-    stripped = text.lstrip()
-    if stripped.startswith("{") or stripped.startswith("["):
-        payload = json.loads(text)
-        catalog = (
-            payload
-            if isinstance(payload, dict) and "models" in payload
-            else slim_vals_leaderboard(payload.get("benchmarkView") or payload)
-        )
-    else:
-        catalog = slim_vals_leaderboard(extract_vals_benchmark_view(text))
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(json.dumps(catalog, ensure_ascii=False), encoding="utf-8")
-    return {
-        "models": len(catalog.get("models") or []),
-        "updated": catalog.get("updated"),
-    }
+def _decode_aa_catalog(content: bytes, key_hex: str) -> bytes:
+    """Decode AA's public browser asset using its page-published key.
+
+    Mirrors the website loader: AES-GCM, SHA-256(key)[:12] nonce, then gzip.
+    This is the same catalog available through the public model selector.
+    """
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
+    try:
+        key = bytes.fromhex(key_hex)
+        compressed = AESGCM(key).decrypt(hashlib.sha256(key).digest()[:12], content, None)
+        decoded = gzip.decompress(compressed)
+        payload = json.loads(decoded)
+        if not isinstance(payload, dict) or not isinstance(payload.get("models"), list):
+            raise ValueError("missing model catalog")
+        if not payload["models"]:
+            raise ValueError("empty model catalog")
+    except Exception as exc:
+        raise AdapterError("Artificial Analysis full catalog could not be decoded") from exc
+    return decoded
 
 
 def _freeze_arc_agi_2(content: bytes, destination: Path, timeout_seconds: float) -> dict[str, Any]:
@@ -138,9 +138,23 @@ def refresh_source(root: Path, source: dict[str, Any]) -> dict[str, Any]:
     response = _http_get(url, timeout_seconds)
     extras: dict[str, Any] = {}
     if source_id == "aa_public_measurements":
-        extras = _freeze_aa_catalog(response.content, destination)
-    elif source_id == "vals_mmlu_pro":
-        extras = _freeze_vals_mmlu_pro(response.content, destination)
+        content = response.content
+        if source.get("full_catalog", False):
+            manifest = extract_aa_catalog_manifest(content.decode("utf-8"))
+            catalog = _http_get(urljoin(url, manifest["path"]), timeout_seconds)
+            content = _decode_aa_catalog(catalog.content, manifest["key"])
+            rows = extract_aa_model_rows(content.decode("utf-8"))
+            for benchmark_id, spec in source.get("score_fields", {}).items():
+                field = spec["field"]
+                token_key = spec.get("token_key", field)
+                count = sum(row.get(field) is not None and token_key in (
+                    row.get("canonical_eval_token_counts") or {}
+                ) for row in rows)
+                if count < spec.get("minimum_models", 1):
+                    raise AdapterError(f"{source_id}: full catalog has too few measured rows for {benchmark_id}: {count}")
+        extras = _freeze_aa_catalog(
+            content, destination, preserve_existing=not source.get("full_catalog", False)
+        )
     elif source_id == "arc_agi_2_verified_cot":
         extras = _freeze_arc_agi_2(response.content, destination, timeout_seconds)
     else:

@@ -35,13 +35,29 @@ def _json_value_after(text: str, key: str) -> Any:
     position = text.find(marker)
     if position < 0:
         raise AdapterError(f"Artificial Analysis payload missing {key}")
+    value_start = position + len(marker)
+    while value_start < len(text) and text[value_start] in " \t\r\n":
+        value_start += 1
     try:
-        return json.JSONDecoder().raw_decode(text[position + len(marker) :])[0]
+        return json.JSONDecoder().raw_decode(text[value_start:])[0]
     except json.JSONDecodeError as exc:
         raise AdapterError(f"Artificial Analysis payload has invalid {key}") from exc
 
 
-AA_SCORE_FIELDS = ("hle", "gpqa", "critpt", "lcr", "omniscience")
+AA_SCORE_FIELDS = ("hle", "gpqa", "critpt", "lcr", "omniscience", "gdp_pdf")
+
+
+def extract_aa_catalog_manifest(text: str) -> dict[str, str]:
+    """Locate the public full-catalog asset used by AA's model selector."""
+    manifest = _json_value_after(_flight_text(text), "manifest")
+    if not isinstance(manifest, dict):
+        raise AdapterError("Artificial Analysis full-catalog manifest is not an object")
+    path, key = manifest.get("path"), manifest.get("key")
+    if not isinstance(path, str) or not re.fullmatch(r"/data/[a-zA-Z0-9_.-]+", path):
+        raise AdapterError("Artificial Analysis full-catalog path is invalid")
+    if not isinstance(key, str) or not re.fullmatch(r"[0-9a-fA-F]{64}", key):
+        raise AdapterError("Artificial Analysis full-catalog decoding key is invalid")
+    return {"path": path, "key": key}
 
 
 def normalize_aa_row(row: dict[str, Any]) -> dict[str, Any]:
@@ -58,6 +74,8 @@ def normalize_aa_row(row: dict[str, Any]) -> dict[str, Any]:
             row.get("canonical_eval_token_counts") or row.get("canonicalEvalTokenCounts") or {}
         ),
         **{field: row.get(field) for field in AA_SCORE_FIELDS},
+        "gdp_pdf": row.get("gdp_pdf", row.get("gdpPdfAllPass")),
+        "input_modality_image": row.get("input_modality_image", row.get("inputModalityImage")),
     }
 
 
@@ -73,7 +91,7 @@ def extract_aa_model_rows(text: str, payload_key: str = "defaultData") -> list[d
         if isinstance(payload, list):
             raw_rows = payload
         elif isinstance(payload, dict):
-            for key in (payload_key, "initialModels"):
+            for key in (payload_key, "initialModels", "models"):
                 candidate = payload.get(key)
                 if isinstance(candidate, list):
                     raw_rows = candidate
@@ -189,10 +207,19 @@ class ArtificialAnalysisHtmlAdapter(SourceAdapter):
                 score = float(value) * scale
                 sample_size = int(spec["sample_size"]) if spec.get("sample_size") else None
                 score_pct = score if unit == "percent" else score * 100.0
-                ci_low, ci_high = _normal_interval(score_pct, sample_size)
+                # Repeated attempts share tasks. Without task-level outcomes,
+                # an independent-trials interval would overstate precision.
+                ci_low, ci_high = _normal_interval(
+                    score_pct, sample_size if spec.get("estimate_interval", True) else None
+                )
                 if unit != "percent" and ci_low is not None and ci_high is not None:
                     ci_low /= 100.0
                     ci_high /= 100.0
+                modality = spec.get("modality", "text")
+                if spec.get("modality_from_image_support"):
+                    if not isinstance(row.get("input_modality_image"), bool):
+                        raise AdapterError(f"{self.source_id}: missing image support for {slug}/{benchmark_id}")
+                    modality = "multimodal" if row["input_modality_image"] else "text"
                 observations.append(
                     Observation.from_mapping(
                         {
@@ -209,14 +236,16 @@ class ArtificialAnalysisHtmlAdapter(SourceAdapter):
                             "retrieved_at": result.retrieved_at,
                             "split": spec.get("split", "default"),
                             "tool_mode": "none",
-                            "modality": spec.get("modality", "text"),
+                            "modality": modality,
                             "protocol_hash": spec.get("protocol_hash", ""),
                             "raw_hash": result.sha256,
                             "ci_low": ci_low,
                             "ci_high": ci_high,
                             "sample_size": sample_size,
                             "protocol_compatible": True,
-                            "notes": _aa_notes(name, has_token_counts),
+                            "notes": " ".join(filter(None, [
+                                _aa_notes(name, has_token_counts), spec.get("notes", "")
+                            ])),
                         }
                     )
                 )

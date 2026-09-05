@@ -19,9 +19,23 @@
       "model_column": "model",
       "infer_public_identity": true,
       "category_columns": {
-        "livebench_reasoning": ["theory_of_mind", "zebra_puzzle", "spatial", "logic_with_navigation"],
-        "livebench_math": ["AMPS_Hard", "integrals_with_game", "math_comp", "olympiad"],
-        "livebench_data_analysis": ["consecutive_events", "tablejoin", "tablereformat"]
+        "livebench_reasoning": [
+          "theory_of_mind",
+          "zebra_puzzle",
+          "spatial",
+          "logic_with_navigation"
+        ],
+        "livebench_math": [
+          "AMPS_Hard",
+          "integrals_with_game",
+          "math_comp",
+          "olympiad"
+        ],
+        "livebench_data_analysis": [
+          "consecutive_events",
+          "tablejoin",
+          "tablereformat"
+        ]
       },
       "metric": "canonical",
       "eval_date": "2026-06-25",
@@ -36,13 +50,13 @@
       "adapter": "artificial_analysis_html",
       "enabled": true,
       "path": "data/frozen/aa_measurements.json",
-      "url": "https://artificialanalysis.ai/evaluations/omniscience",
+      "url": "https://artificialanalysis.ai/evaluations/gdp-pdf",
       "public_url": "https://artificialanalysis.ai/methodology/intelligence-benchmarking",
       "payload_key": "defaultData",
       "source_tier": "independent",
       "timeout_seconds": 120,
-      "minimum_rows": 2000,
-      "minimum_retained_fraction": 0.85,
+      "minimum_rows": 1000,
+      "minimum_retained_fraction": 0.50,
       "score_fields": {
         "hle": {
           "field": "hle",
@@ -67,11 +81,11 @@
         "aa_lcr": {
           "field": "lcr",
           "token_key": "lcr",
-          "version": "aa-lcr-100x3-2026-08",
+          "version": "aa-lcr-v1.1-100x3-2026-09",
           "metric": "pass_rate",
           "sample_size": 300,
           "modality": "text",
-          "protocol_hash": "aa-lcr-100-questions-3-repeat-no-tools",
+          "protocol_hash": "aa-lcr-v1.1-100-questions-3-repeat-no-tools-luna-medium",
           "source_url": "https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning"
         },
         "aa_omniscience": {
@@ -94,27 +108,23 @@
           "modality": "text",
           "protocol_hash": "aa-gpqa-diamond-198-5-repeat-no-tools",
           "source_url": "https://artificialanalysis.ai/evaluations/gpqa-diamond"
+        },
+        "gdp_pdf": {
+          "field": "gdp_pdf",
+          "token_key": "gdpPdf",
+          "version": "aa-gdp-pdf-100x5-luna-medium-2026-09",
+          "metric": "pass_rate",
+          "unit": "proportion",
+          "sample_size": 500,
+          "estimate_interval": false,
+          "modality_from_image_support": true,
+          "minimum_models": 50,
+          "protocol_hash": "aa-gdp-pdf-all-pass-100x5-text-plus-supported-images-no-tools-luna-medium",
+          "source_url": "https://artificialanalysis.ai/evaluations/gdp-pdf",
+          "notes": "All-pass only (not criterion Mean Pass or GDPval). 100 tasks x 5 attempts. Source PDFs are preprocessed by AA; the model receives text and supported page images, with no browsing or tools. Repeats share tasks, so no independent-trials confidence interval is estimated."
         }
-      }
-    },
-    {
-      "id": "vals_mmlu_pro",
-      "adapter": "vals_html",
-      "enabled": true,
-      "path": "data/frozen/vals_mmlu_pro.json",
-      "url": "https://www.vals.ai/benchmarks/mmlu_pro",
-      "public_url": "https://www.vals.ai/benchmarks/mmlu_pro",
-      "source_tier": "independent",
-      "timeout_seconds": 90,
-      "minimum_rows": 80,
-      "benchmark_id": "mmlu_pro",
-      "benchmark_version": "vals-2026-08-15-5shot-cot",
-      "eval_date": "2026-08-15",
-      "metric": "canonical",
-      "sample_size": 12032,
-      "tool_mode": "none",
-      "modality": "text",
-      "protocol_hash": "vals-mmlu-pro-5shot-cot-no-tools"
+      },
+      "full_catalog": true
     },
     {
       "id": "arc_agi_2_verified_cot",

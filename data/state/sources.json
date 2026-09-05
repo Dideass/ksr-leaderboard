@@ -6,16 +6,17 @@
     "excluded_model_names": [],
     "exclusion_notes": {},
     "last_modified": "",
-    "raw_path": "data\\raw\\aa_public_measurements\\b4f73fc6a1646fb5d083baf5b74d6869419918bab0b39e1d24d580120957d255.json",
+    "raw_path": "data\\raw\\aa_public_measurements\\21c3f0b6b32c587dd66e04a4fdb685e43224ce54d88e3aa8f76627ca1b9ee2c5.json",
     "reparsed_from_cache": false,
-    "retrieved_at": "2026-09-05T12:33:32+00:00",
-    "row_count": 2409,
-    "sha256": "b4f73fc6a1646fb5d083baf5b74d6869419918bab0b39e1d24d580120957d255",
-    "source_config_sha256": "004ae532f4fe45a4a07ff2f74dde71788c8201545efdf3946c88dc51ae73c0e3",
+    "retrieved_at": "2026-09-05T13:46:46+00:00",
+    "row_count": 1457,
+    "sha256": "21c3f0b6b32c587dd66e04a4fdb685e43224ce54d88e3aa8f76627ca1b9ee2c5",
+    "source_config_sha256": "453d91a9e3836d0aebe2d018f844ba54baa1f713067ae3615f7f5ea5e4435198",
     "status": "ok"
   },
   "arc_agi_2_verified_cot": {
     "aliases_sha256": "b77a7434da08c74356eed6621d0ff2a99b76a749d328374139efafc8c93393df",
+    "checked_at": "2026-09-05T13:46:47+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],
@@ -31,6 +32,7 @@
   },
   "livebench_release": {
     "aliases_sha256": "b77a7434da08c74356eed6621d0ff2a99b76a749d328374139efafc8c93393df",
+    "checked_at": "2026-09-05T13:46:46+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],
@@ -46,7 +48,7 @@
   },
   "manual_observations": {
     "aliases_sha256": "b77a7434da08c74356eed6621d0ff2a99b76a749d328374139efafc8c93393df",
-    "checked_at": "2026-09-05T12:33:32+00:00",
+    "checked_at": "2026-09-05T13:46:46+00:00",
     "consecutive_failures": 0,
     "etag": "",
     "excluded_model_names": [],
@@ -58,22 +60,6 @@
     "row_count": 0,
     "sha256": "ad630bc8095e382f389e8c065930bdea582e0ef0b8e79037f304ad58309b8f06",
     "source_config_sha256": "3cdd04e8e719f1b84773833d95c147850c995b27b42bf158c55e23d49d03b41c",
-    "status": "ok"
-  },
-  "vals_mmlu_pro": {
-    "aliases_sha256": "b77a7434da08c74356eed6621d0ff2a99b76a749d328374139efafc8c93393df",
-    "checked_at": "2026-09-05T12:33:33+00:00",
-    "consecutive_failures": 0,
-    "etag": "",
-    "excluded_model_names": [],
-    "exclusion_notes": {},
-    "last_modified": "",
-    "raw_path": "data\\raw\\vals_mmlu_pro\\24854e3fb0c2cf2e257a0a6fa6d98008d3143b5d5e1f53a0e7946e8a0ee0cf5e.json",
-    "reparsed_from_cache": false,
-    "retrieved_at": "2026-09-04T07:14:07+00:00",
-    "row_count": 138,
-    "sha256": "24854e3fb0c2cf2e257a0a6fa6d98008d3143b5d5e1f53a0e7946e8a0ee0cf5e",
-    "source_config_sha256": "0082dbeb11b717864fd7fd054dbcdccf07b6536c83119c8d57f892860f6932d1",
     "status": "ok"
   }
 }

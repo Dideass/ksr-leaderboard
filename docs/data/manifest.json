@@ -1,12 +1,12 @@
 {
   "config_warnings": [],
-  "data_hash": "ae2df47f65e7d2fc0ea4a1653ea47ab3cecabdf6e52c6113a1c23fa72b74cc10",
-  "eligible_observation_count": 2880,
-  "generated_at": "2026-09-05T12:35:04+00:00",
+  "data_hash": "256f6177aaec795e62258cbd0daeadd3db6066a6215c5b570982f4ef49d99e60",
+  "eligible_observation_count": 1790,
+  "generated_at": "2026-09-05T13:50:32+00:00",
   "governance": [
     {
       "benchmark_id": "hle",
-      "model_count": 492,
+      "model_count": 289,
       "notes": "Artificial Analysis 2,158-question text-only run; no tools.",
       "saturation_review_signal": true,
       "status": "active",
@@ -16,7 +16,7 @@
     },
     {
       "benchmark_id": "gpqa_diamond",
-      "model_count": 494,
+      "model_count": 290,
       "notes": "AA 198-question Diamond set, 5 repeats, no tools.",
       "saturation_review_signal": true,
       "status": "active",
@@ -25,24 +25,24 @@
       "top10_median": 92.996632996633
     },
     {
-      "benchmark_id": "mmlu_pro",
-      "model_count": 138,
-      "notes": "Vals.ai 5-shot chain-of-thought run of the official 10-option, 14-subject protocol. Overall score is the mean of the 14 subjects.",
-      "saturation_review_signal": true,
+      "benchmark_id": "gdp_pdf",
+      "model_count": 58,
+      "notes": "AA All-pass: 100 professional document tasks across 10 domains, 5 attempts per task. Every criterion must pass. Extracted text for all models plus page images for image-capable models; single turn, no tools or browsing. No synthetic confidence interval from correlated repeats.",
+      "saturation_review_signal": false,
       "status": "active",
-      "title": "MMLU-Pro — Vals 5-shot CoT",
-      "top10_iqr": 1.605000000000004,
-      "top10_median": 89.07888888888888
+      "title": "GDP.pdf — AA All-pass, No Tools",
+      "top10_iqr": 3.1999999999999993,
+      "top10_median": 29.299999999999997
     },
     {
       "benchmark_id": "critpt",
-      "model_count": 493,
+      "model_count": 286,
       "notes": "70 challenges × 5 repeats. Answers may be Python functions, but the model has no code-execution tool.",
       "saturation_review_signal": true,
       "status": "active",
       "title": "CritPt — Research Physics, No Tools",
-      "top10_iqr": 2.0714285714285765,
-      "top10_median": 30.14285714285715
+      "top10_iqr": 1.5714285714285516,
+      "top10_median": 30.42857142857145
     },
     {
       "benchmark_id": "livebench_math",
@@ -76,23 +76,23 @@
     },
     {
       "benchmark_id": "aa_lcr",
-      "model_count": 436,
-      "notes": "",
+      "model_count": 250,
+      "notes": "AA-LCR v1.1: 100 long-document questions, 3 repeats; no tools.",
       "saturation_review_signal": true,
       "status": "active",
-      "title": "Artificial Analysis Long Context Reasoning",
-      "top10_iqr": 0.9166666666666714,
-      "top10_median": 83.6666666666667
+      "title": "Artificial Analysis Long Context Reasoning v1.1",
+      "top10_iqr": 0.916666666666643,
+      "top10_median": 84.0
     },
     {
       "benchmark_id": "aa_omniscience",
-      "model_count": 494,
+      "model_count": 284,
       "notes": "",
-      "saturation_review_signal": false,
+      "saturation_review_signal": true,
       "status": "active",
       "title": "AA-Omniscience — Knowledge & Hallucination",
-      "top10_iqr": 38.24166666666663,
-      "top10_median": 55.2
+      "top10_iqr": 1.0500000000000043,
+      "top10_median": 43.408333333333346
     },
     {
       "benchmark_id": "arc_agi_2",
@@ -105,7 +105,7 @@
       "top10_median": 91.25166666666667
     }
   ],
-  "index_version": "3.5.0",
+  "index_version": "3.6.0",
   "leaderboard": {
     "anchor_version": "2026-08-18-a",
     "available_anchors": [
@@ -123,26 +123,26 @@
       "deepseek/deepseek-v4-pro"
     ],
     "benchmark_participants": {
-      "aa_lcr": 294,
-      "aa_omniscience": 295,
-      "arc_agi_2": 49,
-      "critpt": 295,
-      "gpqa_diamond": 295,
-      "hle": 295,
-      "livebench_data_analysis": 47,
-      "livebench_math": 47,
-      "livebench_reasoning": 47,
-      "mmlu_pro": 89
+      "aa_lcr": 166,
+      "aa_omniscience": 166,
+      "arc_agi_2": 26,
+      "critpt": 167,
+      "gdp_pdf": 41,
+      "gpqa_diamond": 166,
+      "hle": 166,
+      "livebench_data_analysis": 35,
+      "livebench_math": 35,
+      "livebench_reasoning": 35
     },
-    "candidate_models": 389,
-    "comparison_circle_models": 297,
-    "insufficient_count": 94,
+    "candidate_models": 254,
+    "comparison_circle_models": 169,
+    "insufficient_count": 88,
     "method": "weighted_bradley_terry",
     "method_ready": true,
     "missing_policy": "no_imputation_no_penalty_no_weight_transfer",
-    "pairwise_comparisons": 224866,
-    "ranked_count": 295,
-    "ranked_models": 295,
+    "pairwise_comparisons": 71571,
+    "ranked_count": 166,
+    "ranked_models": 166,
     "representative_policy": "highest_reasoning_effort_then_source_then_date",
     "requested_anchors": [
       "anthropic/claude-opus-5",
@@ -158,15 +158,15 @@
       "alibaba/qwen3.8-max",
       "deepseek/deepseek-v4-pro"
     ],
-    "row_count": 389
+    "row_count": 254
   },
-  "method_hash": "2fc0dabed9b2c2e3160a51b4253d093c6ebf68dcf6a6649caf4de0b46cc41ead",
-  "observation_count": 2880,
+  "method_hash": "774a6c58392c5749459df96c703277808135fb0f60ef881a85dfde60990991e0",
+  "observation_count": 1790,
   "parquet": {
     "error": "",
     "written": true
   },
-  "snapshot_id": "v3.5.0-2fc0dabe-ae2df47f",
+  "snapshot_id": "v3.6.0-774a6c58-256f6177",
   "sources": {
     "aa_public_measurements": {
       "aliases_sha256": "b77a7434da08c74356eed6621d0ff2a99b76a749d328374139efafc8c93393df",
@@ -175,16 +175,17 @@
       "excluded_model_names": [],
       "exclusion_notes": {},
       "last_modified": "",
-      "raw_path": "data\\raw\\aa_public_measurements\\b4f73fc6a1646fb5d083baf5b74d6869419918bab0b39e1d24d580120957d255.json",
+      "raw_path": "data\\raw\\aa_public_measurements\\21c3f0b6b32c587dd66e04a4fdb685e43224ce54d88e3aa8f76627ca1b9ee2c5.json",
       "reparsed_from_cache": false,
-      "retrieved_at": "2026-09-05T12:33:32+00:00",
-      "row_count": 2409,
-      "sha256": "b4f73fc6a1646fb5d083baf5b74d6869419918bab0b39e1d24d580120957d255",
-      "source_config_sha256": "004ae532f4fe45a4a07ff2f74dde71788c8201545efdf3946c88dc51ae73c0e3",
+      "retrieved_at": "2026-09-05T13:46:46+00:00",
+      "row_count": 1457,
+      "sha256": "21c3f0b6b32c587dd66e04a4fdb685e43224ce54d88e3aa8f76627ca1b9ee2c5",
+      "source_config_sha256": "453d91a9e3836d0aebe2d018f844ba54baa1f713067ae3615f7f5ea5e4435198",
       "status": "ok"
     },
     "arc_agi_2_verified_cot": {
       "aliases_sha256": "b77a7434da08c74356eed6621d0ff2a99b76a749d328374139efafc8c93393df",
+      "checked_at": "2026-09-05T13:46:47+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
@@ -200,6 +201,7 @@
     },
     "livebench_release": {
       "aliases_sha256": "b77a7434da08c74356eed6621d0ff2a99b76a749d328374139efafc8c93393df",
+      "checked_at": "2026-09-05T13:46:46+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
@@ -215,7 +217,7 @@
     },
     "manual_observations": {
       "aliases_sha256": "b77a7434da08c74356eed6621d0ff2a99b76a749d328374139efafc8c93393df",
-      "checked_at": "2026-09-05T12:33:32+00:00",
+      "checked_at": "2026-09-05T13:46:46+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
@@ -227,22 +229,6 @@
       "row_count": 0,
       "sha256": "ad630bc8095e382f389e8c065930bdea582e0ef0b8e79037f304ad58309b8f06",
       "source_config_sha256": "3cdd04e8e719f1b84773833d95c147850c995b27b42bf158c55e23d49d03b41c",
-      "status": "ok"
-    },
-    "vals_mmlu_pro": {
-      "aliases_sha256": "b77a7434da08c74356eed6621d0ff2a99b76a749d328374139efafc8c93393df",
-      "checked_at": "2026-09-05T12:33:33+00:00",
-      "consecutive_failures": 0,
-      "etag": "",
-      "excluded_model_names": [],
-      "exclusion_notes": {},
-      "last_modified": "",
-      "raw_path": "data\\raw\\vals_mmlu_pro\\24854e3fb0c2cf2e257a0a6fa6d98008d3143b5d5e1f53a0e7946e8a0ee0cf5e.json",
-      "reparsed_from_cache": false,
-      "retrieved_at": "2026-09-04T07:14:07+00:00",
-      "row_count": 138,
-      "sha256": "24854e3fb0c2cf2e257a0a6fa6d98008d3143b5d5e1f53a0e7946e8a0ee0cf5e",
-      "source_config_sha256": "0082dbeb11b717864fd7fd054dbcdccf07b6536c83119c8d57f892860f6932d1",
       "status": "ok"
     }
   },

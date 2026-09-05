@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-09-05",
+    "title": "GDP.pdf joins the KSR basket",
+    "summary": "GDP.pdf now contributes 10% through Artificial Analysis All-pass scores; all active sources were refreshed.",
+    "body": "Version 3.6 replaces the retired academic multiple-choice slot with professional document reasoning. GDP.pdf uses AA All-pass over 100 tasks and five attempts per task, in one turn without tools or browsing. AA now refreshes its complete public model catalog, including configurations outside the default chart selection. AA-LCR is recorded as v1.1. The ten-benchmark basket still totals 100%; anchors and the effort-first selection rule remain fixed. Retired source data and integration code have been removed from the maintained project."
+  },
+  {
+    "date": "2026-09-05",
     "title": "GPT-6 Astra coverage completed",
     "summary": "The latest refresh adds Astra's LiveBench max-effort evaluation and updates its Artificial Analysis measurements.",
     "body": "LiveBench now includes GPT-6 Astra (max), while Artificial Analysis refreshed the Astra configuration scores. The model is merged across its available benchmark rows and now reaches 90% KSR coverage; the scoring method and ten-benchmark basket are unchanged."
@@ -9,19 +15,19 @@
     "date": "2026-09-04",
     "title": "Astra and Gemini 3.8 Flash benchmark refresh",
     "summary": "The enabled benchmark snapshots were refreshed again and the latest Astra, Gemini, Muse, and K2 configurations were added to the board.",
-    "body": "Artificial Analysis, LiveBench, Vals MMLU-Pro, and ARC-AGI-2 were refreshed. GPT-6 Astra, Gemini 3.8 Flash, Muse Spark 1.3, and K2 Horizon 375B A23B now have cross-source identities where available; the scoring method and frozen ten-benchmark basket are unchanged."
+    "body": "The benchmark sources enabled at the time were refreshed. GPT-6 Astra, Gemini 3.8 Flash, Muse Spark 1.3, and K2 Horizon 375B A23B now have cross-source identities where available; the scoring method and frozen ten-benchmark basket are unchanged."
   },
   {
     "date": "2026-09-02",
     "title": "September benchmark refresh and Fable 5.1 added",
     "summary": "All enabled benchmark snapshots were refreshed and the newly measured Fable 5.1 family is now represented on the board.",
-    "body": "Artificial Analysis, LiveBench, Vals MMLU-Pro, and ARC-AGI-2 were refreshed. The update adds Claude Fable 5.1 configurations across the available sources, plus GLM-5.3 Flash, Qwen3.8 Flash Next, and NVIDIA Nemotron 3 Ultra 550B A55B; model aliases were added where source naming needed explicit identity mapping."
+    "body": "The benchmark sources enabled at the time were refreshed. The update adds Claude Fable 5.1 configurations across the available sources, plus GLM-5.3 Flash, Qwen3.8 Flash Next, and NVIDIA Nemotron 3 Ultra 550B A55B; model aliases were added where source naming needed explicit identity mapping."
   },
   {
     "date": "2026-08-22",
     "title": "Fresh benchmark snapshots ingested",
     "summary": "The enabled source snapshots were refreshed and new model configurations were added to the board.",
-    "body": "LiveBench adds Qwen3.8 27B, Ox Alpha max, and DeepSeek V4 Flash Vision Experimental; Vals adds GLM-5.3 and Qwen3.8 27B; ARC-AGI-2 adds eight verified CoT configurations. Artificial Analysis was rechecked and its retained catalog was updated."
+    "body": "LiveBench adds Qwen3.8 27B, Ox Alpha max, and DeepSeek V4 Flash Vision Experimental; ARC-AGI-2 adds eight verified CoT configurations. Artificial Analysis was rechecked and its retained catalog was updated."
   },
   {
     "date": "2026-08-19",

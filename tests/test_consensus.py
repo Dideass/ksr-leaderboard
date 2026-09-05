@@ -48,12 +48,12 @@ class ConsensusScoringTests(unittest.TestCase):
         )
         self.assertTrue(all(spec.weight_index <= 0.15 for spec in self.config.active()))
 
-    def test_v3_basket_is_exact_and_aa_native_share_is_capped(self):
+    def test_v3_basket_is_exact_and_aa_native_share_is_explicit(self):
         active = {spec.id: spec for spec in self.config.active()}
         self.assertEqual(
             set(active),
             {
-                "hle", "gpqa_diamond", "mmlu_pro", "critpt",
+                "hle", "gpqa_diamond", "gdp_pdf", "critpt",
                 "livebench_math", "livebench_reasoning",
                 "livebench_data_analysis", "aa_lcr",
                 "aa_omniscience", "arc_agi_2",
@@ -68,9 +68,9 @@ class ConsensusScoringTests(unittest.TestCase):
         )
         self.assertAlmostEqual(
             sum(active[benchmark_id].weight_index for benchmark_id in {
-                "critpt", "aa_lcr", "aa_omniscience"
+                "critpt", "aa_lcr", "aa_omniscience", "gdp_pdf"
             }),
-            0.30,
+            0.40,
         )
 
     def test_one_family_appears_once_and_order_recovers_signal(self):
