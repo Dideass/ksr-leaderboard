@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-09-05",
+    "title": "GPT-6 Astra coverage completed",
+    "summary": "The latest refresh adds Astra's LiveBench max-effort evaluation and updates its Artificial Analysis measurements.",
+    "body": "LiveBench now includes GPT-6 Astra (max), while Artificial Analysis refreshed the Astra configuration scores. The model is merged across its available benchmark rows and now reaches 90% KSR coverage; the scoring method and ten-benchmark basket are unchanged."
+  },
+  {
     "date": "2026-09-04",
     "title": "Astra and Gemini 3.8 Flash benchmark refresh",
     "summary": "The enabled benchmark snapshots were refreshed again and the latest Astra, Gemini, Muse, and K2 configurations were added to the board.",
