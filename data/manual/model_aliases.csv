@@ -1,4 +1,5 @@
 source_id,source_model_name,provider,model_id,family_id,display_name,endpoint_date,reasoning_effort,protocol_compatible,mutable_alias,input_cost_per_million,output_cost_per_million,speed_tokens_per_second,context_window_tokens
+aa_public_measurements,"HyperNova 60B 2605 (high, based on gpt-oss-120b)",multiversecomputing,hypernova-60b,multiversecomputing/hypernova-60b,HyperNova 60B 2605,,high,true,false,,,,
 livebench_release,claude-opus-4-5-20251101-thinking-64k-high-effort,anthropic,claude-opus-4-5-20251101-thinking-64k-high-effort,anthropic/claude-opus-4.5,Claude Opus 4.5 thinking high,2025-11-01,high,true,false,,,,64000
 livebench_release,claude-opus-4-6-thinking-auto-high-effort,anthropic,claude-opus-4-6-thinking-auto-high-effort,anthropic/claude-opus-4.6,Claude Opus 4.6 thinking high,2026-06-25,high,true,false,,,,
 livebench_release,claude-opus-4-7-xhigh-effort,anthropic,claude-opus-4-7-xhigh-effort,anthropic/claude-opus-4.7,Claude Opus 4.7 xhigh,2026-06-25,xhigh,true,false,,,,

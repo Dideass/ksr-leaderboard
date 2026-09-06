@@ -42,7 +42,7 @@ KSR keeps that idea, with frozen benchmark weights and a frozen set of anchor mo
 
 A model gets an official rank only if it covers enough of the basket (at least 40% of the weight, 5 benchmarks, 3 dimensions, and both a knowledge/science board and a novel/synthesis board). GDP.pdf belongs to context reasoning and the novel/synthesis entry group. Thin evidence still appears as a row, without a total.
 
-Version 3.6.0 adopts GDP.pdf at 10% in place of the retired academic multiple-choice slot. The scoring revision is `bt-2026-09-05-gdp-pdf-aa`. The basket remains ten benchmarks totaling 100%, with the existing frozen anchors. Basket revisions change the meaning of the score; compare model movement within a revision, not raw totals across revisions. AA supplies 65% of the basket's published measurements, an acknowledged source concentration.
+Version 3.6.1 retains GDP.pdf at 10% and fixes ranks to follow published KSR scores in descending order (entity ID breaks exact ties). Scores still exclude anchor self-comparisons. The scoring revision is `bt-2026-09-06-published-rank-aa-lifecycle`. The basket remains ten benchmarks totaling 100%, with the existing frozen anchors. Basket revisions change the meaning of the score; compare model movement within a revision, not raw totals across revisions. AA supplies 65% of the basket's published measurements, an acknowledged source concentration.
 
 ## Build
 
@@ -55,5 +55,7 @@ ksr build
 `ksr update` reads local snapshots only. Use `ksr refresh --build` to download new snapshots.
 
 AA refresh reads the complete catalog loaded by the public website, rather than only its initially selected chart models. The catalog must contain measured GDP.pdf rows with canonical `gdpPdf` token records; failed or incomplete downloads must not be presented as a successful refresh. Standard `HTTP_PROXY` / `HTTPS_PROXY` settings are respected.
+
+AA measurements for deprecated endpoints remain eligible. The lifecycle flag is separate from explicit data deletion. Coverage checks protect all six AA benchmarks during both refresh and offline ingest.
 
 See [MAINTENANCE.md](MAINTENANCE.md) for the current source contracts, validation checklist, generated-site synchronization, and publishing steps. Future agents should read [AGENTS.md](AGENTS.md) before updating.

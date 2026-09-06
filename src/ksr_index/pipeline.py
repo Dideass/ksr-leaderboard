@@ -29,7 +29,7 @@ from .storage import (
 )
 
 
-INGEST_SCHEMA_VERSION = 8
+INGEST_SCHEMA_VERSION = 9
 
 
 def _load_sources(path: Path) -> dict[str, Any]:

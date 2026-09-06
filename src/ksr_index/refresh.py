@@ -22,6 +22,7 @@ AA_KEEP_FIELDS = (
     "short_name",
     "release_date",
     "deleted",
+    "deprecated",
     "model_creators",
     "canonical_eval_token_counts",
     "input_modality_image",
@@ -147,7 +148,7 @@ def refresh_source(root: Path, source: dict[str, Any]) -> dict[str, Any]:
             for benchmark_id, spec in source.get("score_fields", {}).items():
                 field = spec["field"]
                 token_key = spec.get("token_key", field)
-                count = sum(row.get(field) is not None and token_key in (
+                count = sum(not row.get("deleted") and row.get(field) is not None and token_key in (
                     row.get("canonical_eval_token_counts") or {}
                 ) for row in rows)
                 if count < spec.get("minimum_models", 1):

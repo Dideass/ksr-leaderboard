@@ -55,11 +55,12 @@
       "payload_key": "defaultData",
       "source_tier": "independent",
       "timeout_seconds": 120,
-      "minimum_rows": 1000,
-      "minimum_retained_fraction": 0.50,
+      "minimum_rows": 2000,
+      "minimum_retained_fraction": 0.85,
       "score_fields": {
         "hle": {
           "field": "hle",
+          "minimum_models": 500,
           "token_key": "hle",
           "version": "aa-hle-text-2158-2026-08",
           "metric": "canonical",
@@ -70,6 +71,7 @@
         },
         "critpt": {
           "field": "critpt",
+          "minimum_models": 400,
           "token_key": "critpt",
           "version": "aa-canonical-70x5-2026-08",
           "metric": "pass_rate",
@@ -80,6 +82,7 @@
         },
         "aa_lcr": {
           "field": "lcr",
+          "minimum_models": 350,
           "token_key": "lcr",
           "version": "aa-lcr-v1.1-100x3-2026-09",
           "metric": "pass_rate",
@@ -90,6 +93,7 @@
         },
         "aa_omniscience": {
           "field": "omniscience",
+          "minimum_models": 400,
           "token_key": "omniscience",
           "version": "aa-omniscience-6000-2026-08",
           "metric": "signed_index",
@@ -101,6 +105,7 @@
         },
         "gpqa_diamond": {
           "field": "gpqa",
+          "minimum_models": 500,
           "token_key": "gpqa",
           "version": "aa-gpqa-diamond-198x5-2026-08",
           "metric": "multiple_choice",

@@ -37,7 +37,10 @@ ksr build
 - HLE uses only Artificial Analysis scores.
 - GDP.pdf is active at 10%, ID `gdp_pdf`, dimension `context_reasoning`, entry group `novel_or_synthesis`. Use only AA's `gdpPdfAllPass` (normalized as `gdp_pdf`), requiring canonical token key `gdpPdf`. Never substitute criterion Mean Pass, GDPval, agent runs, or a different evaluator's result.
 - GDP.pdf uses 100 tasks × 5 attempts, one turn, no browsing/tools. Record `multimodal` for image-capable endpoints and `text` for the rest. Do not invent confidence intervals from the 500 correlated attempts.
-- The current basket revision is v3.6.0 / `bt-2026-09-05-gdp-pdf-aa`; the retired academic multiple-choice slot has been removed. Do not restore historical benchmark integrations from old commits or cached exports.
+- The current revision is v3.6.1 / `bt-2026-09-06-published-rank-aa-lifecycle`; the retired academic multiple-choice slot has been removed. Do not restore historical benchmark integrations from old commits or cached exports.
+- Rank by the published KSR score descending, then entity ID for exact ties. The anchor score excludes self-comparison, so latent ability order can differ from published score order.
+- AA `deprecated` is lifecycle metadata, not a deletion or an invalid score. Preserve measured older endpoints; only explicit `deleted: true` excludes a catalog row. Never collapse these flags in frozen snapshots.
+- Enforce per-benchmark coverage guards on AA refresh and offline ingest. Do not lower thresholds to conceal missing data. Reparse after adapter changes by incrementing `INGEST_SCHEMA_VERSION`.
 - AA refresh must follow the page-published full-catalog manifest (`full_catalog: true`). Initial chart models are only a subset. A failed full-catalog download must fail the refresh, not silently reuse a partial chart as fresh data.
 - Preserve the frozen LiveBench question-set version during score refreshes. Moving to a new question set or changing an upstream evaluation protocol is a method revision.
 - UI copy is English.

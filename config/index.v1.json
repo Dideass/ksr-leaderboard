@@ -1,5 +1,5 @@
 {
-  "version": "3.6.0",
+  "version": "3.6.1",
   "dimensions": {
     "general_knowledge": "Factual knowledge",
     "scientific_knowledge": "Academic and professional knowledge",
@@ -10,7 +10,7 @@
     "epistemic_reliability": "Epistemic reliability"
   },
   "settings": {
-    "scoring_revision": "bt-2026-09-05-gdp-pdf-aa",
+    "scoring_revision": "bt-2026-09-06-published-rank-aa-lifecycle",
     "pairwise_budget_units": 84.0,
     "prior_sigma": 2.0,
     "entry_min_coverage": 0.4,

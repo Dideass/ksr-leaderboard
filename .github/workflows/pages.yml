@@ -27,6 +27,7 @@ jobs:
           python -m pip install -e .
           PYTHONPATH=src python -m unittest discover -s tests -v
           python -m ksr_index --root . build
+          python scripts/verify_site.py artifacts/site
       - uses: actions/upload-pages-artifact@v3
         with:
           path: artifacts/site

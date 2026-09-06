@@ -69,6 +69,24 @@ class GdpPdfTests(unittest.TestCase):
         with self.assertRaisesRegex(AdapterError, "missing image support"):
             self.parse([row])
 
+    def test_deprecated_measurements_survive_but_deleted_rows_do_not(self):
+        legacy = {**self.row(), "deprecated": True}
+        deleted = {**self.row("high"), "deleted": True}
+        observations = self.parse([legacy, deleted])
+        self.assertEqual(len(observations), 1)
+        self.assertEqual(observations[0].raw_score, 0.332)
+
+    def test_field_coverage_guard_also_applies_to_offline_ingest(self):
+        source = {**self.source, "minimum_rows": 1, "score_fields": {
+            **self.source["score_fields"], "hle": {
+                "field": "hle", "version": "test", "minimum_models": 1,
+            },
+        }}
+        with self.assertRaisesRegex(AdapterError, "too few parsed rows for hle"):
+            ArtificialAnalysisHtmlAdapter(source, AliasRegistry([])).validate(
+                self.parse([self.row()])
+            )
+
     def test_gdp_pdf_is_synthesis_not_knowledge_entry_evidence(self):
         config = load_index_config("config/index.v1.json")
         groups = {g["id"]: g["benchmarks"] for g in config.settings["entry_groups"]}
@@ -78,12 +96,15 @@ class GdpPdfTests(unittest.TestCase):
 
     def test_refresh_uses_full_public_catalog_and_fails_closed(self):
         key = bytes(range(32))
-        payload = json.dumps({"models": [self.row(), self.row("high", 0.31, False)]}).encode()
+        payload = json.dumps({"models": [
+            {**self.row(), "deprecated": True}, self.row("high", 0.31, False)
+        ]}).encode()
         encrypted = AESGCM(key).encrypt(hashlib.sha256(key).digest()[:12], gzip.compress(payload), None)
         manifest = {"path": "/data/test.txt", "key": key.hex()}
         flight = '1:' + json.dumps({"initialModels": [self.row()], "manifest": manifest})
         page = '<script>self.__next_f.push(' + json.dumps([1, flight]) + ')</script>'
         root = Path("work")
+        root.mkdir(parents=True, exist_ok=True)
         snapshot = root / ".tmp_aa_gdp_test.json"
         snapshot.unlink(missing_ok=True)
         self.addCleanup(lambda: snapshot.unlink(missing_ok=True))
@@ -96,6 +117,8 @@ class GdpPdfTests(unittest.TestCase):
         self.assertEqual(result["merged_from_existing"], 0)
         self.assertEqual(get.call_args_list[1].args[0], "https://artificialanalysis.ai/data/test.txt")
         frozen = snapshot.read_bytes()
+        self.assertTrue(json.loads(frozen)[0]["deprecated"])
+        self.assertFalse(json.loads(frozen)[0]["deleted"])
         parsed = ArtificialAnalysisHtmlAdapter(source, AliasRegistry([])).parse(FetchResult(
             source["id"], frozen, "application/json", "2026-09-05T00:00:00+00:00", 200
         ))

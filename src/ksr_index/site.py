@@ -59,6 +59,7 @@ def render_site(
         changelog=changelog,
         latest_update=changelog[0] if changelog else None,
     )
+    html = re.sub(r"(?m)^[ \t]+$", "", html)
     (output_dir / "index.html").write_text(html, encoding="utf-8")
     for name in ("styles.css", "app.js"):
         shutil.copy2(package_dir / "static" / name, output_dir / name)

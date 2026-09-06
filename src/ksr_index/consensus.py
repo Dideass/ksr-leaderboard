@@ -477,7 +477,10 @@ def score_consensus(
     ranked = sorted(
         (row for row in rows if row.status == "ranked"),
         key=lambda row: (
-            -(row.latent_ability if row.latent_ability is not None else -1e9),
+            # Anchors exclude themselves from the displayed win-rate score.
+            # That transform need not preserve latent order across anchors and
+            # non-anchors. Rank the score that readers actually see.
+            -(row.point if row.point is not None else -1e9),
             row.entity_id,
         ),
     )
@@ -513,6 +516,7 @@ def score_consensus(
     )
     diagnostics: dict[str, object] = {
         "method": "weighted_bradley_terry",
+        "rank_policy": "published_score_descending_then_entity_id",
         "anchor_version": config.settings["anchor_version"],
         "requested_anchors": requested_anchors,
         "available_anchors": available_anchors,

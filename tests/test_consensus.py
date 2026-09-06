@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import unittest
+from unittest.mock import patch
+
+import numpy as np
 
 from scipy.special import expit
 
@@ -94,6 +97,25 @@ class ConsensusScoringTests(unittest.TestCase):
         chosen = selected["lab/model"]["hle"]
         self.assertEqual(chosen.observation.reasoning_effort, "high")
         self.assertAlmostEqual(chosen.score, 61.0)
+
+    def test_rank_follows_published_score_when_anchor_transform_reverses_order(self):
+        anchor = self.anchor_ids[-1]
+
+        def fitted(entities, comparisons, sigma):
+            values = {anchor: 1.0, "lab/model-high": 1.01}
+            return np.array([values.get(e, 0.0) for e in entities]), np.eye(len(entities))
+
+        with patch("ksr_index.consensus._fit_bradley_terry", side_effect=fitted):
+            result = score_consensus(self.complete_fixture(), self.config)
+        ranked = [row for row in result.rows if row.status == "ranked"]
+        target = next(row for row in ranked if row.entity_id == anchor)
+        challenger = next(row for row in ranked if row.entity_id == "lab/model-high")
+        self.assertLess(target.latent_ability, challenger.latent_ability)
+        self.assertGreater(target.point, challenger.point)
+        self.assertLess(target.rank, challenger.rank)
+        self.assertEqual([row.point for row in ranked], sorted(
+            (row.point for row in ranked), reverse=True
+        ))
 
     def test_missing_benchmark_stays_blank_and_model_is_not_ranked(self):
         rows = self.complete_fixture()

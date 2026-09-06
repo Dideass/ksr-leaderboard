@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-09-06",
+    "title": "AA coverage restored and ranks corrected",
+    "summary": "Published ranks now follow KSR scores, and measured older AA endpoints are restored.",
+    "body": "Version 3.6.1 separates AA's deprecated endpoint flag from data deletion, restoring valid measurements from the complete September 5 catalog already saved locally. This is an offline repair, not a new benchmark refresh. Ranks now follow the published anchor-based score rather than internal latent ability, while anchor self-comparison remains excluded. Coverage guards now protect each AA benchmark in both refresh and offline ingest. GDP.pdf retains its 10% All-pass slot."
+  },
+  {
     "date": "2026-09-05",
     "title": "GDP.pdf joins the KSR basket",
     "summary": "GDP.pdf now contributes 10% through Artificial Analysis All-pass scores; all active sources were refreshed.",

@@ -68,7 +68,10 @@ def normalize_aa_row(row: dict[str, Any]) -> dict[str, Any]:
         "slug": str(row.get("slug") or "").strip(),
         "short_name": str(row.get("short_name") or row.get("shortName") or name).strip(),
         "release_date": str(row.get("release_date") or row.get("releaseDate") or ""),
-        "deleted": bool(row.get("deleted") or row.get("deprecated")),
+        # A deprecated endpoint still has valid published measurements.
+        # Keep lifecycle metadata separate from an actual data deletion.
+        "deleted": row.get("deleted") is True,
+        "deprecated": row.get("deprecated") is True,
         "model_creators": row.get("model_creators") or row.get("creator") or {},
         "canonical_eval_token_counts": (
             row.get("canonical_eval_token_counts") or row.get("canonicalEvalTokenCounts") or {}
@@ -144,6 +147,17 @@ class ArtificialAnalysisHtmlAdapter(SourceAdapter):
     field when its canonical token-count record is present, which distinguishes
     an independently run AA evaluation from lab-claimed or absent values.
     """
+
+    def validate(self, observations: list[Observation]) -> None:
+        super().validate(observations)
+        for benchmark_id, spec in self.source.get("score_fields", {}).items():
+            minimum = int(spec.get("minimum_models", 0))
+            count = sum(item.benchmark_id == benchmark_id for item in observations)
+            if count < minimum:
+                raise AdapterError(
+                    f"{self.source_id}: too few parsed rows for {benchmark_id}: "
+                    f"{count} (expected >= {minimum})"
+                )
 
     def parse(self, result: FetchResult) -> list[Observation]:
         try:
