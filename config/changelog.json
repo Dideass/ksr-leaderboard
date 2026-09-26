@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-09-26",
+    "title": "Complete benchmark-source refresh",
+    "summary": "The full Artificial Analysis catalog, LiveBench table, and ARC-AGI-2 verified-CoT snapshot were refreshed.",
+    "body": "The Artificial Analysis catalog now contains 673 model configurations and 3,011 parsed observations across its six enabled evaluations. GPT-6 Astra has measured results across all six AA benchmarks, alongside new configurations for GPT-6 Sol and Luna, Claude Opus 5.5, Gemini 3.8 Flash, Grok 4.7, and other model families. LiveBench now includes nine additional model rows, and the official ARC-AGI-2 verified-CoT snapshot was refreshed. The benchmark basket, weights, anchors, ranking policy, and frozen LiveBench question-set version are unchanged. Union Alpha remains isolated as unmapped until its public model identity can be verified."
+  },
+  {
     "date": "2026-09-06",
     "title": "AA coverage restored and ranks corrected",
     "summary": "Published ranks now follow KSR scores, and measured older AA endpoints are restored.",
