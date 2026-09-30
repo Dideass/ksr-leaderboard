@@ -1,17 +1,17 @@
 {
   "config_warnings": [],
-  "data_hash": "2bab72d9c4459c17b832924e650fb6ee5c428e0f8aa11eef89faf2383e3b741c",
-  "eligible_observation_count": 3383,
-  "generated_at": "2026-09-26T06:39:00+00:00",
+  "data_hash": "172f3e959d8d2020e55529bfb9dd334b2dfb66dd791bd8ce1e11fa91d6924cb8",
+  "eligible_observation_count": 3471,
+  "generated_at": "2026-09-30T06:52:01+00:00",
   "governance": [
     {
       "benchmark_id": "hle",
-      "model_count": 634,
+      "model_count": 647,
       "notes": "Artificial Analysis 2,158-question text-only run; no tools.",
       "saturation_review_signal": false,
       "status": "active",
       "title": "Humanity's Last Exam",
-      "top10_iqr": 3.3943466172382273,
+      "top10_iqr": 3.324837812789596,
       "top10_median": 55.74606116774795
     },
     {
@@ -26,57 +26,57 @@
     },
     {
       "benchmark_id": "gdp_pdf",
-      "model_count": 183,
+      "model_count": 198,
       "notes": "AA All-pass: 100 professional document tasks across 10 domains, 5 attempts per task. Every criterion must pass. Extracted text for all models plus page images for image-capable models; single turn, no tools or browsing. No synthetic confidence interval from correlated repeats.",
-      "saturation_review_signal": false,
+      "saturation_review_signal": true,
       "status": "active",
       "title": "GDP.pdf — AA All-pass, No Tools",
-      "top10_iqr": 2.849999999999998,
-      "top10_median": 29.599999999999998
+      "top10_iqr": 1.2000000000000028,
+      "top10_median": 31.0
     },
     {
       "benchmark_id": "critpt",
-      "model_count": 550,
+      "model_count": 563,
       "notes": "70 challenges × 5 repeats. Answers may be Python functions, but the model has no code-execution tool.",
       "saturation_review_signal": true,
       "status": "active",
       "title": "CritPt — Research Physics, No Tools",
-      "top10_iqr": 0.8571428571428008,
-      "top10_median": 31.28571428571425
+      "top10_iqr": 0.28571428571430246,
+      "top10_median": 31.7142857142857
     },
     {
       "benchmark_id": "livebench_math",
-      "model_count": 62,
+      "model_count": 66,
       "notes": "Equal-weight mean of AMPS_Hard, integrals_with_game, math_comp, and olympiad.",
       "saturation_review_signal": true,
       "status": "active",
       "title": "LiveBench Mathematics — 2026-06-25",
-      "top10_iqr": 0.846500000000006,
-      "top10_median": 96.27687499999999
+      "top10_iqr": 0.4387500000000131,
+      "top10_median": 96.748875
     },
     {
       "benchmark_id": "livebench_reasoning",
-      "model_count": 62,
+      "model_count": 66,
       "notes": "",
       "saturation_review_signal": true,
       "status": "active",
       "title": "LiveBench Reasoning — 2026-06-25",
-      "top10_iqr": 1.043312499999999,
-      "top10_median": 90.94225
+      "top10_iqr": 0.7211250000000007,
+      "top10_median": 91.644125
     },
     {
       "benchmark_id": "livebench_data_analysis",
-      "model_count": 62,
+      "model_count": 66,
       "notes": "Equal-weight mean of consecutive_events, tablejoin, and tablereformat.",
       "saturation_review_signal": true,
       "status": "active",
       "title": "LiveBench Data Analysis — 2026-06-25",
-      "top10_iqr": 1.1713333333333509,
-      "top10_median": 80.29133333333334
+      "top10_iqr": 1.7451666666666625,
+      "top10_median": 80.8635
     },
     {
       "benchmark_id": "aa_lcr",
-      "model_count": 483,
+      "model_count": 496,
       "notes": "AA-LCR v1.1: 100 long-document questions, 3 repeats; no tools.",
       "saturation_review_signal": true,
       "status": "active",
@@ -86,7 +86,7 @@
     },
     {
       "benchmark_id": "aa_omniscience",
-      "model_count": 548,
+      "model_count": 561,
       "notes": "",
       "saturation_review_signal": false,
       "status": "active",
@@ -96,7 +96,7 @@
     },
     {
       "benchmark_id": "arc_agi_2",
-      "model_count": 186,
+      "model_count": 195,
       "notes": "Official ARC Prize verified CoT rows on the semi-private 120-task board. Custom, synthesis, refinement, Kaggle, and tool-using systems are excluded.",
       "saturation_review_signal": true,
       "status": "active",
@@ -123,27 +123,27 @@
       "deepseek/deepseek-v4-pro"
     ],
     "benchmark_participants": {
-      "aa_lcr": 301,
-      "aa_omniscience": 302,
-      "arc_agi_2": 52,
-      "critpt": 304,
-      "gdp_pdf": 117,
+      "aa_lcr": 305,
+      "aa_omniscience": 306,
+      "arc_agi_2": 54,
+      "critpt": 308,
+      "gdp_pdf": 123,
       "gpqa_diamond": 293,
-      "hle": 302,
-      "livebench_data_analysis": 53,
-      "livebench_math": 53,
-      "livebench_reasoning": 53
+      "hle": 306,
+      "livebench_data_analysis": 55,
+      "livebench_math": 55,
+      "livebench_reasoning": 55
     },
-    "candidate_models": 472,
-    "comparison_circle_models": 304,
+    "candidate_models": 476,
+    "comparison_circle_models": 308,
     "insufficient_count": 170,
     "method": "weighted_bradley_terry",
     "method_ready": true,
     "missing_policy": "no_imputation_no_penalty_no_weight_transfer",
-    "pairwise_comparisons": 237132,
+    "pairwise_comparisons": 243135,
     "rank_policy": "published_score_descending_then_entity_id",
-    "ranked_count": 302,
-    "ranked_models": 302,
+    "ranked_count": 306,
+    "ranked_models": 306,
     "representative_policy": "highest_reasoning_effort_then_source_then_date",
     "requested_anchors": [
       "anthropic/claude-opus-5",
@@ -159,15 +159,15 @@
       "alibaba/qwen3.8-max",
       "deepseek/deepseek-v4-pro"
     ],
-    "row_count": 472
+    "row_count": 476
   },
   "method_hash": "c84c7035c7b85ad15e0b2a40e80151d9c7c9550dc4722850653cd3342c71655c",
-  "observation_count": 3386,
+  "observation_count": 3471,
   "parquet": {
     "error": "",
     "written": true
   },
-  "snapshot_id": "v3.6.1-c84c7035-2bab72d9",
+  "snapshot_id": "v3.6.1-c84c7035-172f3e95",
   "sources": {
     "aa_public_measurements": {
       "aliases_sha256": "ee51bf95656c48f697f4a42212cda678307363465645f60b625433332e1cc9c4",
@@ -176,11 +176,11 @@
       "excluded_model_names": [],
       "exclusion_notes": {},
       "last_modified": "",
-      "raw_path": "data\\raw\\aa_public_measurements\\281729c8d30c723179f96570c7fe205cadb2c9f7a6de6bd97dad4f0ca7d465ca.json",
+      "raw_path": "data\\raw\\aa_public_measurements\\879b3f3179006ce82ee6e100f78cc93e6deb033ba6accf49504d724a4f8aefff.json",
       "reparsed_from_cache": false,
-      "retrieved_at": "2026-09-26T06:36:16+00:00",
-      "row_count": 3011,
-      "sha256": "281729c8d30c723179f96570c7fe205cadb2c9f7a6de6bd97dad4f0ca7d465ca",
+      "retrieved_at": "2026-09-30T06:49:16+00:00",
+      "row_count": 3078,
+      "sha256": "879b3f3179006ce82ee6e100f78cc93e6deb033ba6accf49504d724a4f8aefff",
       "source_config_sha256": "ae3ea9f28bfec21c892106b56fb73b1f101ab8c62ccb0351490d776e586b7231",
       "status": "ok"
     },
@@ -191,11 +191,11 @@
       "excluded_model_names": [],
       "exclusion_notes": {},
       "last_modified": "",
-      "raw_path": "data\\raw\\arc_agi_2_verified_cot\\4a00fb86ba5939416ef0521092eaadb5292938f6e4ec0573180bdbdd9f747dc0.json",
+      "raw_path": "data\\raw\\arc_agi_2_verified_cot\\d5e271d5397ff3e71a84702913f884ccf964d1126e147ae6de12ac8747c767fc.json",
       "reparsed_from_cache": false,
-      "retrieved_at": "2026-09-26T06:36:17+00:00",
-      "row_count": 186,
-      "sha256": "4a00fb86ba5939416ef0521092eaadb5292938f6e4ec0573180bdbdd9f747dc0",
+      "retrieved_at": "2026-09-30T06:49:17+00:00",
+      "row_count": 195,
+      "sha256": "d5e271d5397ff3e71a84702913f884ccf964d1126e147ae6de12ac8747c767fc",
       "source_config_sha256": "67a65b6cdd31b868b4c75a37534348bd57dd45a70876371879b8cb45b5b35b6c",
       "status": "ok"
     },
@@ -206,17 +206,17 @@
       "excluded_model_names": [],
       "exclusion_notes": {},
       "last_modified": "",
-      "raw_path": "data\\raw\\livebench_release\\05f59189a82813c446681b0c5902a559ef9c5d55263a2bb0ae2d1868fb5ecb2d.csv",
+      "raw_path": "data\\raw\\livebench_release\\1021e4ef211ccba609d6da2c22032f46d695c1546508cf144a58a2f3d6960f3d.csv",
       "reparsed_from_cache": false,
-      "retrieved_at": "2026-09-26T06:36:16+00:00",
-      "row_count": 189,
-      "sha256": "05f59189a82813c446681b0c5902a559ef9c5d55263a2bb0ae2d1868fb5ecb2d",
+      "retrieved_at": "2026-09-30T06:49:16+00:00",
+      "row_count": 198,
+      "sha256": "1021e4ef211ccba609d6da2c22032f46d695c1546508cf144a58a2f3d6960f3d",
       "source_config_sha256": "615cdda84e97fe407b530667204772b850bfe3334a76221dbaab0097ffc80e6b",
       "status": "ok"
     },
     "manual_observations": {
       "aliases_sha256": "ee51bf95656c48f697f4a42212cda678307363465645f60b625433332e1cc9c4",
-      "checked_at": "2026-09-26T06:36:16+00:00",
+      "checked_at": "2026-09-30T06:49:16+00:00",
       "consecutive_failures": 0,
       "etag": "",
       "excluded_model_names": [],
@@ -231,7 +231,5 @@
       "status": "ok"
     }
   },
-  "unmapped_models": [
-    "union-alpha"
-  ]
+  "unmapped_models": []
 }

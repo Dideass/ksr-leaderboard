@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-09-30",
+    "title": "GPT-6.1 Sol benchmark coverage added",
+    "summary": "The full AA catalog adds five GPT-6.1 Sol effort configurations; LiveBench adds Max and XHigh scores.",
+    "body": "All three enabled public sources were refreshed. GPT-6.1 Sol now appears as one OpenAI family with five Artificial Analysis configurations and three LiveBench benchmark scores for Max and XHigh. The selected Max configuration scores 86.23 on KSR with 80% benchmark coverage and high confidence. GPQA Diamond and ARC-AGI-2 have no valid GPT-6.1 Sol measurement in these source snapshots, so those cells remain blank. The ten-benchmark basket, weights, anchors, published-score ranking policy, and frozen LiveBench 2026-06-25 question set are unchanged."
+  },
+  {
     "date": "2026-09-26",
     "title": "Complete benchmark-source refresh",
     "summary": "The full Artificial Analysis catalog, LiveBench table, and ARC-AGI-2 verified-CoT snapshot were refreshed.",
