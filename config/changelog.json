@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-10-18",
+    "title": "Complete source refresh and October model additions",
+    "summary": "Refreshed the full Artificial Analysis catalog, frozen LiveBench table, and ARC-AGI-2 verified-CoT snapshot; new model families and cross-source identities are updated.",
+    "body": "All three enabled remote sources were refreshed successfully. The Artificial Analysis full catalog contains 704 model configurations and 3,174 parsed observations across six benchmarks; LiveBench contains 70 model rows for the unchanged 2026-06-25 question set; the ARC source published 243 rows, of which 219 verified-CoT rows were ingested. Newly represented families include Gemini 4 Argon, Muse Wonder and Muse Wonder Full, Claude Haiku 5.5, Mistral Large 4, Agnes 2.5 Pro Beta, and others. Cross-source aliases were reconciled for Muse Wonder and Mistral Large 4, and provider/model identity changes were normalized for HyperNova and JT-4.1 Flash. The ten-benchmark basket, weights, anchors, published-score ranking policy, GDP.pdf All-pass method, and LiveBench question-set version are unchanged. The refreshed snapshot contains 487 candidate families and 320 ranked models, with no unmapped models."
+  },
+  {
     "date": "2026-09-30",
     "title": "GPT-6.1 Sol benchmark coverage added",
     "summary": "The full AA catalog adds five GPT-6.1 Sol effort configurations; LiveBench adds Max and XHigh scores.",
