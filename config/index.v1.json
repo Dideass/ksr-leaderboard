@@ -128,7 +128,7 @@
       "weights": {
         "index": 0.1
       },
-      "source_url": "https://livebench.ai/",
+      "source_url": "https://livebench.ai/v1/",
       "notes": "Equal-weight mean of AMPS_Hard, integrals_with_game, math_comp, and olympiad."
     },
     {
@@ -142,7 +142,7 @@
       "weights": {
         "index": 0.1
       },
-      "source_url": "https://livebench.ai/"
+      "source_url": "https://livebench.ai/v1/"
     },
     {
       "id": "livebench_data_analysis",
@@ -155,7 +155,7 @@
       "weights": {
         "index": 0.05
       },
-      "source_url": "https://livebench.ai/",
+      "source_url": "https://livebench.ai/v1/",
       "notes": "Equal-weight mean of consecutive_events, tablejoin, and tablereformat."
     },
     {

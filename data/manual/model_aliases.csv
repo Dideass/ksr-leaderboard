@@ -259,3 +259,4 @@ aa_public_measurements,"JT-4.1 Flash 236B A21B (Non-reasoning)",china-mobile,jt-
 aa_public_measurements,"Mistral Large 4 Preview",mistral,mistral-large-4,mistral/mistral-large-4,Mistral Large 4,2026-10-06,default,true,false,,,,
 livebench_release,mistral-large-4-high,mistral,mistral-large-4-high,mistral/mistral-large-4,Mistral Large 4,2026-10-06,high,true,false,,,,
 livebench_release,muse-wonder-1.0-max,meta,muse-wonder-1.0-max,meta/muse-wonder,Muse Wonder,2026-10-12,max,true,false,,,,
+livebench_release,nemotron-3.5-lightning-30b-a3b,nvidia,nemotron-3-5-lightning,nvidia/nemotron-3.5-lightning,Nemotron 3.5 Lightning,2026-08-11,default,true,false,,,,

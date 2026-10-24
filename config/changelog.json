@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-10-24",
+    "title": "Kimi K3.1 Pro and full source refresh",
+    "summary": "Added Kimi K3.1 Pro from the Artificial Analysis full catalog and refreshed all enabled sources.",
+    "body": "All three enabled remote sources refreshed successfully. Kimi K3.1 Pro now has five compatible KSR measurements from Artificial Analysis: HLE 52.46, CritPt 24.57, AA-LCR 86.33, AA-Omniscience 29.52, and GDP.pdf All-pass 31.4. It ranks 12th at KSR 67.91 with 55% coverage and medium confidence; GPQA Diamond, LiveBench 1.0, and ARC-AGI-2 remain blank because these sources publish no compatible result for this model. The AA catalog contains 709 configurations and 3,194 parsed observations; LiveBench 1.0 contains 71 model rows for its unchanged 2026-06-25 question set; ARC Prize supplied 261 rows, with 238 verified-CoT rows ingested. Newly measured families also include DeepSeek V4.1 Flash, Ling 3.1 Flash, MiniMax-M3.1 Flash, and Nemotron 3.5 Lightning. The LiveBench v1 archive URL was updated, and its Nemotron entry was reconciled with the AA family identity. The ten-benchmark basket, weights, anchors, ranking method, GDP.pdf All-pass protocol, and LiveBench question-set version are unchanged. The refreshed snapshot contains 490 candidate families and 322 ranked models, with no unmapped models."
+  },
+  {
     "date": "2026-10-18",
     "title": "Complete source refresh and October model additions",
     "summary": "Refreshed the full Artificial Analysis catalog, frozen LiveBench table, and ARC-AGI-2 verified-CoT snapshot; new model families and cross-source identities are updated.",
